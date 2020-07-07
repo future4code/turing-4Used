@@ -10,9 +10,11 @@ import Button from '@material-ui/core/Button';
 
 const ContainerCadastrarProdutos = styled.div `
     width: 500px;
+    height: 90vh;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 `;
 
 const MetodosDePagamento = styled.div `
@@ -30,10 +32,14 @@ const AdicionarMaisFotos = styled.span `
     line-height: 45px;
 `;
 
+const ContainerCriaçãoProduto = styled.div `
+    
+`;
+
 export class ComponentPostarProduto extends Component {
   render() {
     return (
-      <div>
+      <ContainerCriaçãoProduto>
         <ContainerCadastrarProdutos>
             <h1>Incluir Produto</h1>
             <TextField
@@ -125,7 +131,7 @@ export class ComponentPostarProduto extends Component {
             </Button>
             
         </ContainerCadastrarProdutos>
-      </div>
+      </ContainerCriaçãoProduto>
     )
   }
 }
