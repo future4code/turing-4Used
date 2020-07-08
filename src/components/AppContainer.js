@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Footer from "./Footer/Index";
 
 import CardCategoria from './CardCategoria/CardCategoria';
 
