@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
+import { withStyles } from '@material-ui/core/styles';
 
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -27,6 +28,11 @@ const Cabecalho = styled.div`
   align-items: center;
   justify-content: space-between;
 `
+const BotaoFinaliza = withStyles({ //estilo do botão para texto branco
+  root: {
+    color: 'white',
+  },
+})(Button);
 
 export class Carrinho extends Component {
   state= {
@@ -65,15 +71,25 @@ export class Carrinho extends Component {
     total: 0
   }
 
+  componentDidMount = () => {
+    let valorTotal = 0
+    this.state.produto.forEach((produto) => {
+      valorTotal += produto.price
+      this.setState({total: valorTotal})
+    })
+  }
+
   onClickFinalizarCompra = () => {
     alert("Obrigado por comprar conosco! Volte sempre.")
     this.setState({produto: []})
   }
 
-  onClickDeletaProdutoDoCarrinho = (prodId) => {
+  onClickDeletaProdutoDoCarrinho = (prodId, prodPrice) => {
+    let diminuiPreco = this.state.total
     const novosprodutos = this.state.produto.filter((produto, indice, array) => {
       if(produto.id === prodId){
-        this.state.total = 0
+        diminuiPreco = diminuiPreco - prodPrice
+        this.setState({total: diminuiPreco})
         return false
       }
       return true
@@ -82,10 +98,6 @@ export class Carrinho extends Component {
   }
 
   render() {
-    this.state.produto.forEach((produto) => {
-      this.state.total += produto.price
-    })
-
     const carrinhoComProdutos = <Car>
       <Cabecalho>
         <h1>Seu Carrinho</h1>
@@ -112,7 +124,7 @@ export class Carrinho extends Component {
           </TableBody>
         </Table>
       </Paper>
-      <Button variant="contained" color="primary" onClick= {this.onClickFinalizarCompra}>Finalizar Compra</Button>
+      <BotaoFinaliza variant="contained" color="primary" onClick= {this.onClickFinalizarCompra}>Finalizar Compra</BotaoFinaliza>
     </Car>
 
     const carrinhoSemProdutos = <Car>
