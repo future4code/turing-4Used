@@ -4,6 +4,7 @@ import ComponentFiltro from './ComponentFiltro';
 import Footer from "./Footer/Index";
 import Header from "./CardHeader/Index";
 import CardCategoria from './CardCategoria/CardCategoria';
+import PaginaCategoria from './CardCategoria/PaginaCategoria';
 import Carrinho from './Carrinho'
 
 
@@ -20,6 +21,18 @@ export class AppContainer extends Component {
         break;
       case "Carrinho":
         this.setState({ paginaAtual: "Carrinho"});
+        break;  
+      case "Roupas":
+        this.setState({ paginaAtual: "Roupas"});
+        break;  
+      case "Calcados":
+        this.setState({ paginaAtual: "Calcados"});
+        break;  
+      case "Acessórios":
+        this.setState({ paginaAtual: "Acessórios"});
+        break;  
+      case "Outros":
+        this.setState({ paginaAtual: "Outros"});
         break;  
       default:
         this.setState({ paginaAtual: "Inicio" });
@@ -40,11 +53,27 @@ export class AppContainer extends Component {
           <ComponentFiltro mudaPagina={this.mudaPagina} />
           <CardCategoria mudaPagina={this.mudaPagina}/>  
         </div>
+      break; 
+    case 'Roupas':
+      renderiza =
+        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual}/>     
+      break; 
+    case 'Calcados':
+      renderiza =
+        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual}/>     
+      break; 
+    case 'Acessórios':
+      renderiza =
+        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual}/>     
+      break; 
+    case 'Outros':
+      renderiza =
+        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual}/>     
       break;
     case 'Carrinho':
       renderiza =
         <Carrinho mudaPagina={this.mudaPagina}/>     
-      break;  
+      break;
     default: 
     renderiza =
       <ComponentFiltro mudaPagina={this.mudaPagina} />

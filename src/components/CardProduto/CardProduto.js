@@ -75,19 +75,35 @@ class CardProduto extends React.Component{
     detalheProduto: false,
   }
 
-  mostrarDetalheProduto = id => {
-    this.setState({ detalheProduto: !this.state.detalheProduto })
+  mostrarDetalheProduto = () => {
+    this.setState({ detalheProduto: true })
+    console.log("oi")
+  }
+
+  fecharDetalheProduto = () => {
+    console.log("oi")
+    this.setState({ detalheProduto: false })
   }
   
   render() {
 
     const { classes } = this.props;
 
-    const detalheProduto = this.state.detalheProduto ? <DetalheProduto produto={this.props.produtoNome} categoria={this.props.produtoCategoria} descricao={this.props.produtoDescricao} preco={this.props.preco} imagens={this.props.imagem} pagamento={this.props.produtoPagemento} parcelas={this.props.produtoParcelas} /> : null;
+    const detalheProduto = this.state.detalheProduto ? <DetalheProduto 
+    produto={this.props.produtoNome} 
+    categoria={this.props.produtoCategoria} 
+    descricao={this.props.produtoDescricao} 
+    preco={this.props.preco} 
+    imagens={this.props.imagem} 
+    pagamento={this.props.produtoPagemento} 
+    parcelas={this.props.produtoParcelas}
+    onClickFechaDetalhe={this.fecharDetalheProduto}
+    /> 
+    : null;
     
     return (
-          <Card className={classes.card} theme={tema} onClick={this.mostrarDetalheProduto}>
-            <CardContent>
+          <Card className={classes.card} theme={tema}>
+            <CardContent onClick={this.mostrarDetalheProduto}>
               <CardMedia
               className={classes.media}
               image={this.props.imagem}
