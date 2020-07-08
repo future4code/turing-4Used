@@ -95,7 +95,7 @@ class CardProduto extends React.Component{
     descricao={this.props.produtoDescricao} 
     preco={this.props.preco} 
     imagens={this.props.imagem} 
-    pagamento={this.props.produtoPagemento} 
+    pagamento={this.props.produtoPagamento} 
     parcelas={this.props.produtoParcelas}
     onClickFechaDetalhe={this.fecharDetalheProduto}
     /> 

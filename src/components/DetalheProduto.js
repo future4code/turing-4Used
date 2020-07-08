@@ -15,18 +15,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import Close from '@material-ui/icons/Close';
 
 import { withStyles } from '@material-ui/core/styles';
-import { MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles'
-
-const theme = createMuiTheme({
-    palette: {
-      primary: {
-        main: "#00FFFF"
-      },
-      secondary: {
-        main:"#0000FF"
-      }
-    }
-  })
+import { array } from 'prop-types';
 
   const Botaozao = withStyles({ //estilo do botão para texto branco
     root: {
@@ -55,7 +44,10 @@ grid-template-rows: 1fr;
 min-height: 90%;
 width: 80%;
 padding: 40px;
-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+box-shadow:
+    0px 1px 3px 0px rgba(0,0,0,0.2),
+    0px 1px 1px 0px rgba(0,0,0,0.14),
+    0px 2px 1px -1px rgba(0,0,0,0.12);
 border-radius: 4px;
     > * {
         margin: 16px;
@@ -78,14 +70,23 @@ const BtnCLose = styled.button`
     cursor: pointer;
 `
 
+const PagamentoContainer = styled.div`
+    margin-bottom: 24px;
+`
+
 export class DetalheProduto extends Component {
     state = {
-        pagamentoSelecionado: false
+        pagamentoSelecionado: true
     }
 
   render() {
 
-    const metodosDePagamento = this.state.pagamentoSelecionado ? <select><option>Oi</option></select> : null
+    const metodosDePagamento = this.state.pagamentoSelecionado && (this.props.pagamento === "cartão de crédito")  ?
+        <PagamentoContainer>
+            <h3>Métodos de Pagamento</h3>
+            <p>{this.props.parcelas}</p>
+        </PagamentoContainer>
+        : null
 
     return (
         <Total>
@@ -109,33 +110,36 @@ export class DetalheProduto extends Component {
                         <FormControlLabel
                             value="top"
                             control={<Radio color="primary" />}
-                            label="Cartão de Débito"
+                            label={this.props.pagamento}
                             labelPlacement="start"
                         />
                     </RadioGroup>
+                    {metodosDePagamento}
                     <Botaozao variant="contained" color="primary" >Adicionar ao Carrinho</Botaozao>
                 </Dados>
                 <Imagens>
-                    <GridList cellHeight={100} cols={3}>
-                        <GridListTile cols={3} rows={2}>
-                            <img src="https://picsum.photos/300/210?random=1"/>
-                        </GridListTile>
-                        <GridListTile cols={1} rows={1}>
-                            <img src="https://picsum.photos/100/100?random=2"/>
-                        </GridListTile>
-                        <GridListTile cols={1} rows={1}>
-                            <img src="https://picsum.photos/100/100?random=3"/>
-                        </GridListTile>
-                        <GridListTile cols={1} rows={1}>
-                            <img src="https://picsum.photos/100/100?random=4"/>
-                        </GridListTile>
-                        <GridListTile cols={1.5} rows={2}>
-                            <img src="https://picsum.photos/150/200?random=5"/>
-                        </GridListTile>
-                        <GridListTile cols={1.5} rows={2}>
-                            <img src="https://picsum.photos/150/200?random=6"/>
-                        </GridListTile>
-                    </GridList>
+                    {this.props.imagens.map( (imagem, idx, arr) => {
+                        return <GridList cellHeight={100} cols={3}>
+                            <GridListTile cols={3} rows={2}>
+                                <img src={arr[0]}/>
+                            </GridListTile>
+                            <GridListTile cols={1} rows={1}>
+                                <img src={arr[1]}/>
+                            </GridListTile>
+                            <GridListTile cols={1} rows={1}>
+                                <img src={arr[2]}/>
+                            </GridListTile>
+                            <GridListTile cols={1} rows={1}>
+                                <img src={arr[3]}/>
+                            </GridListTile>
+                            <GridListTile cols={1.5} rows={2}>
+                                <img src={arr[4]}/>
+                            </GridListTile>
+                            <GridListTile cols={1.5} rows={2}>
+                                <img  src={arr[5]}/>
+                            </GridListTile>
+                        </GridList>
+                    })}
                 </Imagens>
             </Detalhe>
         </Total>
