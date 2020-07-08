@@ -1,19 +1,10 @@
 import React, { Component } from 'react'
-import styled from 'styled-components';
-
+import {ComponentFiltroContainer, ContainerFiltro, Banner} from "./styles";
+import banner from "./img/banners-inverno.png";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import { withStyles } from '@material-ui/core/styles'; //estilo especial para o texto botão
-
-const ContainerFiltro = styled.div `
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 58vw;
-  padding: 8px;
-  margin: 0 auto;
-`;
 
 const BotaoFiltrar = withStyles({ //estilo do botão para texto branco
   root: {
@@ -24,7 +15,7 @@ const BotaoFiltrar = withStyles({ //estilo do botão para texto branco
 export class ComponentFiltro extends Component {
   render() {   
     return (
-      <div>
+      <ComponentFiltroContainer>
         <ContainerFiltro>
           <TextField
             id="valor-min"
@@ -46,7 +37,10 @@ export class ComponentFiltro extends Component {
             Filtrar
           </BotaoFiltrar>
         </ContainerFiltro>
-      </div>
+        <Banner>
+            <img src={banner} alt="Banner" />
+        </Banner>
+      </ComponentFiltroContainer>
     )
   }
 }
