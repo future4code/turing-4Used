@@ -76,7 +76,7 @@ export class CardCategoria extends React.Component {
   state = {
     listaDeProdutos: [
       {
-        id: 123,
+        id: 1231,
         categoria: "Roupas",
         nome: "Camiseta",
         descricao: "Camiseta masculina cor preta, tamanho G",
@@ -86,7 +86,7 @@ export class CardCategoria extends React.Component {
         rows: 2
       },
       {
-        id: 123,
+        id: 1232,
         categoria: "Roupas",
         Produto: "Camiseta",
         descricao: "Camiseta masculina cor preta, tamanho G",
@@ -94,7 +94,7 @@ export class CardCategoria extends React.Component {
         imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
       },
       {
-        id: 123,
+        id: 1233,
         categoria: "Roupas",
         nome: "Camiseta",
         descricao: "Camiseta masculina cor preta, tamanho G",
@@ -102,7 +102,7 @@ export class CardCategoria extends React.Component {
         imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
       },
       {
-        id: 123,
+        id: 1234,
         categoria: "Roupas",
         nome: "Camiseta",
         descricao: "Camiseta masculina cor preta, tamanho G",
@@ -110,7 +110,7 @@ export class CardCategoria extends React.Component {
         imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
       },
       {
-        id: 123,
+        id: 1235,
         categoria: "Roupas",
         nome: "Camiseta",
         descricao: "Camiseta masculina cor preta, tamanho G",
@@ -118,7 +118,7 @@ export class CardCategoria extends React.Component {
         imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
       },
       {
-        id: 123,
+        id: 1236,
         categoria: "Roupas",
         nome: "Camiseta",
         descricao: "Camiseta masculina cor preta, tamanho G",
@@ -128,7 +128,7 @@ export class CardCategoria extends React.Component {
         rows: 2
       },
       {
-        id: 123,
+        id: 1237,
         categoria: "Calçados",
         nome: "Camiseta",
         descricao: "Camiseta masculina cor preta, tamanho G",
@@ -138,7 +138,7 @@ export class CardCategoria extends React.Component {
         rows: 2
       },
       {
-        id: 123,
+        id: 1238,
         categoria: "Calçados",
         Produto: "Camiseta",
         descricao: "Camiseta masculina cor preta, tamanho G",
@@ -146,7 +146,7 @@ export class CardCategoria extends React.Component {
         imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
       },
       {
-        id: 123,
+        id: 1239,
         categoria: "Calçados",
         nome: "Camiseta",
         descricao: "Camiseta masculina cor preta, tamanho G",
@@ -154,7 +154,7 @@ export class CardCategoria extends React.Component {
         imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
       },
       {
-        id: 123,
+        id: 1240,
         categoria: "Calçados",
         nome: "Camiseta",
         descricao: "Camiseta masculina cor preta, tamanho G",
@@ -162,7 +162,7 @@ export class CardCategoria extends React.Component {
         imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
       },
       {
-        id: 123,
+        id: 1241,
         categoria: "Calçados",
         nome: "Camiseta",
         descricao: "Camiseta masculina cor preta, tamanho G",
@@ -170,7 +170,7 @@ export class CardCategoria extends React.Component {
         imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
       },
       {
-        id: 123,
+        id: 1242,
         categoria: "Calçados",
         nome: "Camiseta",
         descricao: "Camiseta masculina cor preta, tamanho G",
@@ -180,7 +180,7 @@ export class CardCategoria extends React.Component {
         rows: 2
       },
     ],
-    pageAtual: "Inicio"
+    paginaAtual: this.props.pagina || "Inicio"
   }
 
   render (){
@@ -203,18 +203,16 @@ export class CardCategoria extends React.Component {
       }
     });
 
-    const categoriasPagina = itensCategoria.filter( item => {
-      if ( item.categoria === this.state.currentPage ) {
-        return <GridItem>
+    const categoriasPagina = itensCategoria.map( item => {
+        return <GridItem key={item.id}>
           <CardProduto 
             imagem={item.imagens[0]} 
             preco={item.preco} 
           />
       </GridItem>
-      }
     });
 
-    const mostrarProdutos = this.state.pageAtual === "Inicio" ? categoriasInicio : categoriasPagina
+    const mostrarProdutos = this.state.paginaAtual === "Inicio" ? categoriasInicio : categoriasPagina
 
     return (
       <MuiThemeProvider theme={tema}>

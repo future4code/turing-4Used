@@ -4,6 +4,10 @@ import CardCategoria from './CardCategoria/CardCategoria';
 
 export class AppContainer extends Component {
 
+  state = {
+    paginaAtual: "Inicio"
+  }
+
   render() {
 
     const categorias = [
@@ -25,14 +29,21 @@ export class AppContainer extends Component {
       }
     ]
 
+    const categoriasInicio = categorias.map( grupo => {
+        return <CardCategoria categoria={grupo.titulo} textoCategoria={grupo.texto} pagina={this.state.paginaAtual}></CardCategoria>
+      });
+    
+    const categoriasPagina = categorias.map( grupo => {
+      if ( grupo.titulo === this.state.paginaAtual ) {
+        return <CardCategoria categoria={grupo.titulo} textoCategoria={grupo.texto} pagina={this.state.paginaAtual}></CardCategoria>
+      }
+    });
+    
+    const mostrarProdutos = this.state.paginaAtual === "Inicio" ? categoriasInicio : categoriasPagina
+
     return (
       <div>
-        {
-          categorias.map( grupo => {
-            return <CardCategoria categoria={grupo.titulo} textoCategoria={grupo.texto}></CardCategoria>
-          })
-        }
-        
+        {mostrarProdutos}
       </div>
     )
   }
