@@ -1,9 +1,10 @@
-
 import React, { Component } from 'react';
 import ComponentPostarProduto from './ComponentPostarProduto';
 import ComponentFiltro from './ComponentFiltro';
 import Footer from "./Footer/Index";
+import Header from "./CardHeader/Index";
 import CardCategoria from './CardCategoria/CardCategoria';
+import Carrinho from './Carrinho'
 
 
 export class AppContainer extends Component {
@@ -12,44 +13,48 @@ export class AppContainer extends Component {
     paginaAtual: "Inicio"
   }
 
+  mudaPagina = (a) => {
+    switch(a) {
+      case "Vender":
+        this.setState({ paginaAtual: "Vender"});
+        break;
+      case "Carrinho":
+        this.setState({ paginaAtual: "Carrinho"});
+        break;  
+      default:
+        this.setState({ paginaAtual: "Inicio" });
+    }
+  }
+
   render() {
+    console.log(this.state.paginaAtual)
+    let renderiza = "";
+    switch (this.state.paginaAtual) {
+    case 'Vender':
+      renderiza =
+        <ComponentPostarProduto mudaPagina={this.mudaPagina} />
+      break;
+    case 'Inicio':
+      renderiza =
+        <div>
+          <ComponentFiltro mudaPagina={this.mudaPagina} />
+          <CardCategoria mudaPagina={this.mudaPagina}/>  
+        </div>
+      break;
+    case 'Carrinho':
+      renderiza =
+        <Carrinho mudaPagina={this.mudaPagina}/>     
+      break;  
+    default: 
+    renderiza =
+      <ComponentFiltro mudaPagina={this.mudaPagina} />
+  }
 
-    const categorias = [
-      {
-        titulo: "Roupas",
-        texto: "Roupas, muitas roupas, de todas as cores"
-      },
-      {
-        titulo: "Calçados",
-        texto: "Calçados, muitas calçados, de todas as cores"
-      },
-      {
-        titulo: "Acessórios",
-        texto: "Acessórios, muitos acessórios, de todas as cores"
-      },
-      {
-        titulo: "Outros",
-        texto: "Muitas outras coisas, de todas as cores"
-      }
-    ]
-
-    const categoriasInicio = categorias.map( grupo => {
-        return <CardCategoria categoria={grupo.titulo} textoCategoria={grupo.texto} pagina={this.state.paginaAtual}></CardCategoria>
-      });
-    
-    const categoriasPagina = categorias.map( grupo => {
-      if ( grupo.titulo === this.state.paginaAtual ) {
-        return <CardCategoria categoria={grupo.titulo} textoCategoria={grupo.texto} pagina={this.state.paginaAtual}></CardCategoria>
-      }
-    });
-    
-    const mostrarProdutos = this.state.paginaAtual === "Inicio" ? categoriasInicio : categoriasPagina
-
-    return (
+  return (
       <div>
-        <ComponentFiltro />
-        <ComponentPostarProduto />
-        {mostrarProdutos}
+        <Header mudaPagina={this.mudaPagina}/>
+        {renderiza}
+        <Footer />
       </div>
     )
   }
