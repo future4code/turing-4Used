@@ -42,6 +42,12 @@ const styles = {
   }
 };
 
+ 
+// case 'Calcados':
+//   renderiza =
+//     <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual}/>     
+//   break; 
+
 export class CardCategoria extends React.Component {
   state = {
     listaDeProdutos: []
@@ -84,14 +90,8 @@ export class CardCategoria extends React.Component {
     ]
 
     const categoriasProdutos = grupo => {
-      const listaProdutosDaCategoria = this.state.listaDeProdutos.filter( (item, idx) => {
+      const listaProdutosDaCategoria = this.state.listaDeProdutos.map( (item, idx) => {
         if ( item.category === grupo) {
-          return item.category;
-        }
-      });
-
-      const limiteProdutos = listaProdutosDaCategoria.map( (item, idx) => {
-        if ( idx < 6 ) {
           return <GridItem>
             <CardProduto 
               imagem={item.photos} 
@@ -108,32 +108,35 @@ export class CardCategoria extends React.Component {
         }
       });
 
-      return limiteProdutos;
+      return listaProdutosDaCategoria;
     }
 
 
     return (
       <MuiThemeProvider theme={tema}>
+        {console.log(this.props.paginaCategoria)}
           {grupoCategorias.map( grupo => {
-            return (
-              <Container>
-
-                <CardsHeader>
-                <Typography variant="h3" className={classes.titulo}>
-                  {grupo.titulo}
-                </Typography>
-                <Typography variant="subheading" className={classes.subtitulo}>
-                  {grupo.nome}
-                </Typography>
-                <Divider variant="inset" className={classes.fio} />
-                </CardsHeader>
-
-                <GridProdutos>
-                  {categoriasProdutos(grupo.titulo)}
-                </GridProdutos>
-
-              </Container>
-            )
+            if ( this.props.paginaCategoria.substring(1, 3) === grupo.titulo.substring(1, 3) ) {
+              return (
+                <Container>
+  
+                  <CardsHeader>
+                  <Typography variant="h3" className={classes.titulo}>
+                    {grupo.titulo}
+                  </Typography>
+                  <Typography variant="subheading" className={classes.subtitulo}>
+                    {grupo.nome}
+                  </Typography>
+                  <Divider variant="inset" className={classes.fio} />
+                  </CardsHeader>
+  
+                  <GridProdutos>
+                    {categoriasProdutos(grupo.titulo)}
+                  </GridProdutos>
+  
+                </Container>
+              )
+            }
           })
           }
       </MuiThemeProvider>

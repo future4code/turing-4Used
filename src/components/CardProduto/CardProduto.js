@@ -12,6 +12,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
 
+import detalheProduto, { DetalheProduto } from '../DetalheProduto';
+
 const tema = createMuiTheme({
     palette: {
       primary: {
@@ -68,24 +70,37 @@ const PriceContainer = styled.div `
   justify-content: space-between;
 `
 
-function CardProduto(props) {
-  const { classes } = props;
-  return (
-    <MuiThemeProvider theme={tema}>
-        <Card className={classes.card} theme={tema}>
-          <CardContent>
-            <CardMedia
-            className={classes.media}
-            image={props.imagem}
-            />
-          </CardContent>
-          <PriceContainer>
-            <Chip label={props.preco} className={classes.chip} />
-            <ShoppingCart size="medium" color="primary" />
-          </PriceContainer>
-        </Card>
-    </MuiThemeProvider>
-  );
+class CardProduto extends React.Component{
+  state = {
+    detalheProduto: false,
+  }
+
+  mostrarDetalheProduto = id => {
+    this.setState({ detalheProduto: !this.state.detalheProduto })
+  }
+  
+  render() {
+
+    const { classes } = this.props;
+
+    const detalheProduto = this.state.detalheProduto ? <DetalheProduto produto={this.props.produtoNome} categoria={this.props.produtoCategoria} descricao={this.props.produtoDescricao} preco={this.props.preco} imagens={this.props.imagem} pagamento={this.props.produtoPagemento} parcelas={this.props.produtoParcelas} /> : null;
+    
+    return (
+          <Card className={classes.card} theme={tema} onClick={this.mostrarDetalheProduto}>
+            <CardContent>
+              <CardMedia
+              className={classes.media}
+              image={this.props.imagem}
+              />
+            </CardContent>
+            <PriceContainer>
+              <Chip label={this.props.preco} className={classes.chip} />
+              <ShoppingCart size="medium" color="primary" />
+            </PriceContainer>
+            {detalheProduto}
+          </Card>
+    );
+  }
 }
 
 CardProduto.propTypes = {

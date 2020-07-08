@@ -33,8 +33,15 @@ const theme = createMuiTheme({
 
 const Total = styled.div`
     width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background-color: #F2F2F2;
 `
 const Detalhe = styled.div`
 display: grid;
@@ -59,13 +66,10 @@ export class DetalheProduto extends Component {
         <Total>
             <Detalhe>
                 <Dados>
-                    <h1>Produto</h1>
-                    <Chip label="Categoria" />
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer egestas quam vitae dolor mattis,
-                        id dictum nisl bibendum. Pellentesque venenatis eget nunc at malesuada. Cras luctus luctus
-                        libero vitae commodo. Morbi pulvinar est ac ante tempor, at vestibulum sem posuere.</p>
-                    <h2>R$ 120,00</h2>
-                    <Chip label="Categoria" />
+                    <h1>{this.props.produto}</h1>
+                    <Chip label={this.props.categoria} />
+                    <p>{this.props.descricao}</p>
+                    <h2>{this.props.preco}</h2>
                     <h3>Métodos de Pagamento</h3>
                     <RadioGroup
                         aria-label="position"
@@ -78,18 +82,6 @@ export class DetalheProduto extends Component {
                             value="top"
                             control={<Radio color="primary" />}
                             label="Cartão de Débito"
-                            labelPlacement="start"
-                        />
-                        <FormControlLabel
-                            value="start"
-                            control={<Radio color="primary" />}
-                            label="Cartão de Crédito"
-                            labelPlacement="start"
-                        />
-                        <FormControlLabel
-                            value="bottom"
-                            control={<Radio color="primary" />}
-                            label="Boleto Bancário"
                             labelPlacement="start"
                         />
                     </RadioGroup>
