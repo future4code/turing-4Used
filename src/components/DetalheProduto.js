@@ -11,6 +11,9 @@ import Button from '@material-ui/core/Button';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 
+
+import Close from '@material-ui/icons/Close';
+
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles'
 
@@ -64,6 +67,7 @@ export class DetalheProduto extends Component {
   render() {
     return (
         <Total>
+            <Close size="medium" color="primary" onClick={this.props.onClickFechaDetalhe} />
             <Detalhe>
                 <Dados>
                     <h1>{this.props.produto}</h1>
