@@ -16,6 +16,7 @@ export const Logo = styled.div`
   img{
     height: 100%;
   }
+  cursor: pointer;
 `;
 
 export const HeaderNav = styled.div`

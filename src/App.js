@@ -13,6 +13,16 @@ import { createMuiTheme } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { AppContainer } from './components/AppContainer'
 
+const tema = createMuiTheme({
+	palette: {
+	  primary: {
+		main: "#00bcd5"
+	  },
+	  secondary: {
+		main:"#cc1474"
+	  }
+	}
+  })
 
 const generateClassName = createGenerateClassName()
 const jss = create({
@@ -25,7 +35,7 @@ const theme = createMuiTheme()
 function App() {
 	return (
 		<JssProvider jss={jss} generateClassName={generateClassName}>
-			<MuiThemeProvider theme={theme}>
+			<MuiThemeProvider theme={tema}>
 				<CssBaseline />
 				<AppContainer />
 			</MuiThemeProvider>
