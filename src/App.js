@@ -13,6 +13,7 @@ import { createMuiTheme } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { AppContainer } from './components/AppContainer'
 
+
 const generateClassName = createGenerateClassName()
 const jss = create({
 	...jssPreset(),

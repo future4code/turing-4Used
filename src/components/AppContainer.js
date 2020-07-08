@@ -1,7 +1,10 @@
-import React, { Component } from 'react'
-import Footer from "./Footer/Index";
 
+import React, { Component } from 'react';
+import ComponentPostarProduto from './ComponentPostarProduto';
+import ComponentFiltro from './ComponentFiltro';
+import Footer from "./Footer/Index";
 import CardCategoria from './CardCategoria/CardCategoria';
+
 
 export class AppContainer extends Component {
 
@@ -44,6 +47,8 @@ export class AppContainer extends Component {
 
     return (
       <div>
+        <ComponentFiltro />
+        <ComponentPostarProduto />
         {mostrarProdutos}
       </div>
     )
