@@ -7,7 +7,7 @@ import styled from "styled-components";
     height: 32px;
     color: white;
     background-color: #00bcd5;
-    position:absolute;
+    position:fixed;
     left:0;
     bottom:0;
     right:0;
