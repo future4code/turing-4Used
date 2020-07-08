@@ -1,18 +1,22 @@
 import styled from "styled-components";
 
+export const HeaderContainer = styled.div`
+  margin-bottom: 16px;
+`;
+
 export const HeaderElementos = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 60vw;
-  padding: 8px;
+  padding: 8px 0;
   margin: 0 auto;
 `;
 
 export const Logo = styled.div`
   width: 10vw;
   height: 48px;
-  text-align: center;
+  text-align: left;
   img{
     height: 100%;
   }

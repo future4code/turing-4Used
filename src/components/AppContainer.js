@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import ComponentPostarProduto from './ComponentPostarProduto';
-import ComponentFiltro from './ComponentFiltro';
+import ComponentFiltro from './ComponentFiltro/Index';
 import Footer from "./Footer/Index";
 import Header from "./CardHeader/Index";
 import CardCategoria from './CardCategoria/CardCategoria';
 import Carrinho from './Carrinho'
-
 
 export class AppContainer extends Component {
 

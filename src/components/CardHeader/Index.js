@@ -1,5 +1,5 @@
 import React from "react";
-import {HeaderElementos, Logo, HeaderNav, Menu} from "./styles";
+import {HeaderContainer, HeaderElementos, Logo, HeaderNav, Menu} from "./styles";
 import logo from "./img/logo-4used-transparent.png";
 
 import { withStyles } from '@material-ui/core/styles'; //estilo especial para o texto botão
@@ -17,7 +17,7 @@ const BotaoHeader = withStyles({ //estilo do botão para texto branco
 
 export default function Header(props) {
   return (
-    <div>
+    <HeaderContainer>
         <HeaderElementos>
           <Logo onClick={() => props.mudaPagina("Inicio")}>
               <img src={logo} alt="Logo" />
@@ -34,11 +34,11 @@ export default function Header(props) {
                 </IconButton>
             </Menu>
                   
-            <BotaoHeader color="primary" variant="contained" onClick={() => props.mudaPagina("Vender")}>Vender</BotaoHeader>     
+            <BotaoHeader size="small" color="primary" variant="contained" onClick={() => props.mudaPagina("Vender")}>Vender</BotaoHeader>     
           </HeaderNav>
         </HeaderElementos>
         <Divider />
-    </ div>
+    </ HeaderContainer>
   );
 }
 
