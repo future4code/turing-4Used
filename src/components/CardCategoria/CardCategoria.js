@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import { withStyles } from '@material-ui/core/styles';
@@ -8,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
 import CardProduto from '../CardProduto/CardProduto';
+import Axios from 'axios';
 
 const Container = styled.div `
   max-width: 1024px;
@@ -74,122 +76,46 @@ const styles = {
 
 export class CardCategoria extends React.Component {
   state = {
-    listaDeProdutos: [
-      {
-        id: 1231,
-        categoria: "Roupas",
-        nome: "Camiseta",
-        descricao: "Camiseta masculina cor preta, tamanho G",
-        preco: "R$120,00",
-        imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
-      },
-      {
-        id: 1232,
-        categoria: "Roupas",
-        Produto: "Camiseta",
-        descricao: "Camiseta masculina cor preta, tamanho G",
-        preco: "R$120,00",
-        imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
-      },
-      {
-        id: 1233,
-        categoria: "Roupas",
-        nome: "Camiseta",
-        descricao: "Camiseta masculina cor preta, tamanho G",
-        preco: "R$120,00",
-        imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
-      },
-      {
-        id: 1234,
-        categoria: "Roupas",
-        nome: "Camiseta",
-        descricao: "Camiseta masculina cor preta, tamanho G",
-        preco: "R$120,00",
-        imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
-      },
-      {
-        id: 1235,
-        categoria: "Roupas",
-        nome: "Camiseta",
-        descricao: "Camiseta masculina cor preta, tamanho G",
-        preco: "R$120,00",
-        imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
-      },
-      {
-        id: 1236,
-        categoria: "Roupas",
-        nome: "Camiseta",
-        descricao: "Camiseta masculina cor preta, tamanho G",
-        preco: "R$120,00",
-        imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
-      },
-      {
-        id: 1237,
-        categoria: "Calçados",
-        nome: "Camiseta",
-        descricao: "Camiseta masculina cor preta, tamanho G",
-        preco: "R$120,00",
-        imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
-      },
-      {
-        id: 1238,
-        categoria: "Calçados",
-        Produto: "Camiseta",
-        descricao: "Camiseta masculina cor preta, tamanho G",
-        preco: "R$120,00",
-        imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
-      },
-      {
-        id: 1239,
-        categoria: "Calçados",
-        nome: "Camiseta",
-        descricao: "Camiseta masculina cor preta, tamanho G",
-        preco: "R$120,00",
-        imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
-      },
-      {
-        id: 1240,
-        categoria: "Calçados",
-        nome: "Camiseta",
-        descricao: "Camiseta masculina cor preta, tamanho G",
-        preco: "R$120,00",
-        imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
-      },
-      {
-        id: 1241,
-        categoria: "Calçados",
-        nome: "Camiseta",
-        descricao: "Camiseta masculina cor preta, tamanho G",
-        preco: "R$120,00",
-        imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
-      },
-      {
-        id: 1242,
-        categoria: "Calçados",
-        nome: "Camiseta",
-        descricao: "Camiseta masculina cor preta, tamanho G",
-        preco: "R$120,00",
-        imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
-      },
-    ],
+    listaDeProdutos: [],
     paginaAtual: this.props.pagina || "Inicio"
+  }
+
+  componentDidMount = () => {
+    this.listarProdutos();
+  }
+
+  listarProdutos = () => {
+    axios.get("https://us-central1-labenu-apis.cloudfunctions.net/fourUsedOne/products")
+    .then( response => {
+      this.setState({ listaDeProdutos: response.data.products });
+    })
+    .catch( err => {
+      console.log(err.message);
+    })
   }
 
   render (){
     const { classes } = this.props;
 
     const itensCategoria = this.state.listaDeProdutos.filter( item => {
-      if ( this.props.categoria === item.categoria) {
+      if ( this.props.categoria === item.category) {
         return item
       }
     });
 
-    const categoriasInicio = itensCategoria.map( (produto, idx) => {
+    const categoriasInicio = itensCategoria.map( (item, idx) => {
       if ( idx < 6 ) {
         return <GridItem>
           <CardProduto 
-            imagem={produto.imagens[0]} 
-            preco={produto.preco} 
+            imagem={item.photos} 
+            preco={"R$ " + item.price} 
+            id={item.id}
+            lista={this.listarProdutos}
+            produtoNome = {item.name}
+            produtoCategoria = {item.category}
+            produtoDescricao = {item.description}
+            produtoPagamento = {item.paymentMethod}
+            produtoParcelas = {item.installments}
           />
       </GridItem>
       }
@@ -198,8 +124,11 @@ export class CardCategoria extends React.Component {
     const categoriasPagina = itensCategoria.map( item => {
         return <GridItem key={item.id}>
           <CardProduto 
-            imagem={item.imagens[0]} 
-            preco={item.preco} 
+            imagem={item.photos[0]} 
+            preco={"R$ " + item.price} 
+            id={item.id}
+            lista={this.listarProdutos}
+            nomeProduto={item.name}
           />
       </GridItem>
     });
