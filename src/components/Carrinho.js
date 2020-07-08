@@ -115,7 +115,7 @@ export class Carrinho extends Component {
                   R$ {prod.price}
                 </TableCell>
                 <TableCell align="right">
-                  <IconButton onClick= {() => this.onClickDeletaProdutoDoCarrinho(prod.id)}>
+                  <IconButton onClick= {() => this.onClickDeletaProdutoDoCarrinho(prod.id, prod.price)}>
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
