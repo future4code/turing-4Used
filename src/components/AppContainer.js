@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import ComponentPostarProduto from './ComponentPostarProduto';
 import ComponentFiltro from './ComponentFiltro/Index';
 import Footer from "./Footer/Index";
@@ -10,7 +11,22 @@ import Carrinho from './Carrinho'
 export class AppContainer extends Component {
 
   state = {
-    paginaAtual: "Inicio"
+    paginaAtual: "Inicio",
+    listaDeProdutos: []
+  }
+
+  componentDidMount = () => {
+    this.listarProdutos();
+  }
+
+  listarProdutos = () => {
+    axios.get("https://us-central1-labenu-apis.cloudfunctions.net/fourUsedOne/products")
+    .then( response => {
+      this.setState({ listaDeProdutos: response.data.products });
+    })
+    .catch( err => {
+      console.log(err.message);
+    })
   }
 
   mudaPagina = (a) => {
@@ -50,24 +66,24 @@ export class AppContainer extends Component {
       renderiza =
         <div>
           <ComponentFiltro mudaPagina={this.mudaPagina} />
-          <CardCategoria mudaPagina={this.mudaPagina}/>  
+          <CardCategoria mudaPagina={this.mudaPagina} lista={this.state.listaDeProdutos}/>  
         </div>
       break; 
     case 'Roupas':
       renderiza =
-        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual}/>     
+        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual} lista={this.state.listaDeProdutos}/>     
       break; 
     case 'Calcados':
       renderiza =
-        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual}/>     
+        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual} lista={this.state.listaDeProdutos}/>     
       break; 
     case 'Acessórios':
       renderiza =
-        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual}/>     
+        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual} lista={this.state.listaDeProdutos}/>     
       break; 
     case 'Outros':
       renderiza =
-        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual}/>     
+        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual} lista={this.state.listaDeProdutos}/>     
       break;
     case 'Carrinho':
       renderiza =
