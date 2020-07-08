@@ -82,8 +82,6 @@ export class CardCategoria extends React.Component {
         descricao: "Camiseta masculina cor preta, tamanho G",
         preco: "R$120,00",
         imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
-        cols: 2,
-        rows: 2
       },
       {
         id: 1232,
@@ -124,8 +122,6 @@ export class CardCategoria extends React.Component {
         descricao: "Camiseta masculina cor preta, tamanho G",
         preco: "R$120,00",
         imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
-        cols: 2,
-        rows: 2
       },
       {
         id: 1237,
@@ -134,8 +130,6 @@ export class CardCategoria extends React.Component {
         descricao: "Camiseta masculina cor preta, tamanho G",
         preco: "R$120,00",
         imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
-        cols: 2,
-        rows: 2
       },
       {
         id: 1238,
@@ -176,8 +170,6 @@ export class CardCategoria extends React.Component {
         descricao: "Camiseta masculina cor preta, tamanho G",
         preco: "R$120,00",
         imagens: ["https://www.usereserva.com/ccstore/v1/images/?source=/file/v4833326403729550636/products/0021813040_01.jpg"],
-        cols: 2,
-        rows: 2
       },
     ],
     paginaAtual: this.props.pagina || "Inicio"
