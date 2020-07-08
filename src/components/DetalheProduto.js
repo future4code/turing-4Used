@@ -15,6 +15,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import Close from '@material-ui/icons/Close';
 
 import { withStyles } from '@material-ui/core/styles';
+import { array } from 'prop-types';
 
   const Botaozao = withStyles({ //estilo do botão para texto branco
     root: {
@@ -117,26 +118,28 @@ export class DetalheProduto extends Component {
                     <Botaozao variant="contained" color="primary" >Adicionar ao Carrinho</Botaozao>
                 </Dados>
                 <Imagens>
-                    <GridList cellHeight={100} cols={3}>
-                        <GridListTile cols={3} rows={2}>
-                            <img src="https://picsum.photos/300/210?random=1"/>
-                        </GridListTile>
-                        <GridListTile cols={1} rows={1}>
-                            <img src="https://picsum.photos/100/100?random=2"/>
-                        </GridListTile>
-                        <GridListTile cols={1} rows={1}>
-                            <img src="https://picsum.photos/100/100?random=3"/>
-                        </GridListTile>
-                        <GridListTile cols={1} rows={1}>
-                            <img src="https://picsum.photos/100/100?random=4"/>
-                        </GridListTile>
-                        <GridListTile cols={1.5} rows={2}>
-                            <img src="https://picsum.photos/150/200?random=5"/>
-                        </GridListTile>
-                        <GridListTile cols={1.5} rows={2}>
-                            <img src="https://picsum.photos/150/200?random=6"/>
-                        </GridListTile>
-                    </GridList>
+                    {this.props.imagens.map( (imagem, idx, arr) => {
+                        return <GridList cellHeight={100} cols={3}>
+                            <GridListTile cols={3} rows={2}>
+                                <img src={arr[0]}/>
+                            </GridListTile>
+                            <GridListTile cols={1} rows={1}>
+                                <img src={arr[1]}/>
+                            </GridListTile>
+                            <GridListTile cols={1} rows={1}>
+                                <img src={arr[2]}/>
+                            </GridListTile>
+                            <GridListTile cols={1} rows={1}>
+                                <img src={arr[3]}/>
+                            </GridListTile>
+                            <GridListTile cols={1.5} rows={2}>
+                                <img src={arr[4]}/>
+                            </GridListTile>
+                            <GridListTile cols={1.5} rows={2}>
+                                <img  src={arr[5]}/>
+                            </GridListTile>
+                        </GridList>
+                    })}
                 </Imagens>
             </Detalhe>
         </Total>
