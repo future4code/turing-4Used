@@ -36,12 +36,12 @@ const styles = {
     maxWidth: 400,
     height: '100%',
     position: 'relative',
-    cursor: 'pointer'
   },
   media: {
     height: 0,
     paddingTop: '100%',
-    marginTop: 16
+    marginTop: 16,
+    cursor: 'pointer'
   },
   value: {
     fontWeight: 700

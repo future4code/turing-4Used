@@ -38,21 +38,27 @@ const Total = styled.div`
     width: 100vw;
     height: 100vh;
     display: flex;
+    align-items: center;
     justify-content: center;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 2;
-    background-color: #F2F2F2;
 `
 const Detalhe = styled.div`
+position: relative;
+background-color: #F2F2F2;
 display: grid;
 grid-template-columns: 3fr 2fr;
 grid-template-rows: 1fr;
-    width: 60vw;
+min-height: 90%;
+width: 80%;
+padding: 40px;
+box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+border-radius: 4px;
     > * {
-        margin: 10px;
+        margin: 16px;
     }
 `
 const Dados = styled.div`
@@ -63,12 +69,30 @@ const Imagens = styled.div`
     grid-column: 2/3;
 `
 
+const BtnCLose = styled.button`
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+`
+
 export class DetalheProduto extends Component {
+    state = {
+        pagamentoSelecionado: false
+    }
+
   render() {
+
+    const metodosDePagamento = this.state.pagamentoSelecionado ? <select><option>Oi</option></select> : null
+
     return (
         <Total>
-            <Close size="medium" color="primary" onClick={this.props.onClickFechaDetalhe} />
             <Detalhe>
+            <BtnCLose>
+                <Close size="medium" color="primary" onClick={this.props.onClickFechaDetalhe} />
+            </BtnCLose>
                 <Dados>
                     <h1>{this.props.produto}</h1>
                     <Chip label={this.props.categoria} />

@@ -43,23 +43,6 @@ const styles = {
 };
 
 export class CardCategoria extends React.Component {
-  state = {
-    listaDeProdutos: []
-  }
-
-  componentDidMount = () => {
-    this.listarProdutos();
-  }
-
-  listarProdutos = () => {
-    axios.get("https://us-central1-labenu-apis.cloudfunctions.net/fourUsedOne/products")
-    .then( response => {
-      this.setState({ listaDeProdutos: response.data.products });
-    })
-    .catch( err => {
-      console.log(err.message);
-    })
-  }
 
   render (){
     const { classes } = this.props;
@@ -84,7 +67,7 @@ export class CardCategoria extends React.Component {
     ]
 
     const categoriasProdutos = grupo => {
-      const listaProdutosDaCategoria = this.state.listaDeProdutos.filter( (item, idx) => {
+      const listaProdutosDaCategoria = this.props.lista.filter( (item, idx) => {
         if ( item.category === grupo) {
           return item.category;
         }
