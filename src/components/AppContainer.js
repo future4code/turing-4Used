@@ -12,11 +12,30 @@ export class AppContainer extends Component {
 
   state = {
     paginaAtual: "Inicio",
-    listaDeProdutos: []
+    valorInputMin: "",
+    valorInputMax: "",
+    valorCategoria: "",
+    listaDeProdutos: [],
+    listaDeProdutosFiltrados: []
   }
 
   componentDidMount = () => {
     this.listarProdutos();
+  }
+
+  onChangeValorMin = (e) => {
+    this.setState({valorInputMin: e.target.value})
+    console.log(this.state.valorInputMin)
+  }
+
+  onChangeValorMax = (e) => {
+    this.setState({valorInputMax: e.target.value})
+    console.log(this.state.valorInputMax)
+  }
+
+  onChangeValorCategoria = (e) => {
+    this.setState({valorCategoria: e.target.value})
+    console.log(this.state.valorCategoria)
   }
 
   listarProdutos = () => {
@@ -28,6 +47,7 @@ export class AppContainer extends Component {
       console.log(err.message);
     })
   }
+
 
   mudaPagina = (a) => {
     switch(a) {
@@ -55,6 +75,21 @@ export class AppContainer extends Component {
   }
 
   render() {
+    let itensFiltrados = this.state.listaDeProdutos
+
+    if(this.state.valorInputMin !== "") {
+      itensFiltrados = itensFiltrados.filter((elemento) => {
+        return elemento.price >= this.state.valorInputMin ? true : false
+      })
+    }
+    if(this.state.valorInputMax !== "") {
+      itensFiltrados = itensFiltrados.filter((elemento) => {
+        return elemento.price <= this.state.valorInputMax ? true : false
+      })
+    }
+
+    console.log(this.state.valorInputMin)
+
     console.log(this.state.paginaAtual)
     let renderiza = "";
     switch (this.state.paginaAtual) {
@@ -65,8 +100,8 @@ export class AppContainer extends Component {
     case 'Inicio':
       renderiza =
         <div>
-          <ComponentFiltro mudaPagina={this.mudaPagina} />
-          <CardCategoria mudaPagina={this.mudaPagina} lista={this.state.listaDeProdutos}/>  
+          <ComponentFiltro mudaPagina={this.mudaPagina} valorMin={this.state.valorInputMin} valorMax={this.state.valorInputMax} onChangeValorMin={this.onChangeValorMin} onChangeValorMax={this.onChangeValorMax} />
+          <CardCategoria mudaPagina={this.mudaPagina} lista={itensFiltrados}/>  
         </div>
       break; 
     case 'Roupas':
