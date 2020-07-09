@@ -1,26 +1,30 @@
 import React, { Component } from 'react'
 import {ComponentFiltroContainer, ContainerFiltro, Banner} from "./styles";
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 import banner from "./img/banners-inverno.png";
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import { TextField, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 
-import { withStyles } from '@material-ui/core/styles'; //estilo especial para o texto botão
+const styles = {
+  formControl: {
+    width: 150,
+  }
+}
 
-const BotaoFiltrar = withStyles({ //estilo do botão para texto branco
-  root: {
-    color: 'white',
-  },
-})(Button);
 
 export class ComponentFiltro extends Component {
   state = {
-    
+      valorInputOrdenacao: "",
   }
 
-  
+  onChangeOrdenacao = (e) => {
+    this.setState({valorInputOrdenacao: e.target.value})
+  }
 
   render() {   
-
+    console.log(this.state.valorInputOrdenacao)
+    const { classes } = this.props;
 
 
     
@@ -41,16 +45,26 @@ export class ComponentFiltro extends Component {
             label="Valor Máximo"
             variant="outlined"
           />
-          <TextField
-            onChange={this.onChangeValorCategoria}
-            id="categoria"
-            label="Busca por categoria"
-            variant="outlined"
-            type="text"
-          />
-          <BotaoFiltrar size="small" color="primary" variant="contained">
-            Filtrar
-          </BotaoFiltrar>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel htmlFor="outlined-age-simple">Ordenar</InputLabel>
+            <Select
+              labelId="ordenacao"
+              value={this.state.valorInputOrdenacao}
+              onChange={this.onChangeOrdenacao}
+              input={
+                <OutlinedInput
+                name="ordenação"
+                id="outlined-age-simple"
+                />
+              }
+            >
+              <MenuItem value="">
+              <em>None</em>
+              </MenuItem>
+              <MenuItem value={"nome"}>Nome</MenuItem>
+              <MenuItem value={"valor"}>Valor</MenuItem>
+            </Select>
+          </FormControl>
         </ContainerFiltro>
         <Banner>
             <img src={banner} alt="Banner" />
@@ -59,5 +73,8 @@ export class ComponentFiltro extends Component {
     )
   }
 }
+ComponentFiltro.propTypes={
+  classes: PropTypes.object.isRequired,
+};
 
-export default ComponentFiltro
+export default withStyles(styles)(ComponentFiltro);
