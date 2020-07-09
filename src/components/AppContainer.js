@@ -41,7 +41,6 @@ export class AppContainer extends Component {
     
     switch (e.target.value) {
       case 'nome':
-        console.log("ta chamando")
         return this.setState({listaDeProdutos: this.state.listaDeProdutos.sort((a, b) => {
            if(b.name > a.name) {
             return -1;
