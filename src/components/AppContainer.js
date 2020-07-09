@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import axios from 'axios';
 import ComponentPostarProduto from './ComponentPostarProduto';
 import ComponentFiltro from './ComponentFiltro/Index';
@@ -8,6 +9,17 @@ import CardCategoria from './CardCategoria/CardCategoria';
 import PaginaCategoria from './CardCategoria/PaginaCategoria';
 import Carrinho from './Carrinho'
 
+const NumeroCarrinho = styled.p `
+  width: 14px;
+  height: 14px;
+  margin-top: -16px;
+  background-color: #cc1474;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 10px;
+  line-height: 16px;
+`
+
 export class AppContainer extends Component {
 
   state = {
@@ -16,7 +28,7 @@ export class AppContainer extends Component {
     valorInputMax: "",
     valorCategoria: "",
     listaDeProdutos: [],
-    listaDeProdutosFiltrados: []
+    produtosSelecionados: []
   }
 
   componentDidMount = () => {
@@ -48,7 +60,6 @@ export class AppContainer extends Component {
     })
   }
 
-
   mudaPagina = (a) => {
     switch(a) {
       case "Vender":
@@ -74,6 +85,23 @@ export class AppContainer extends Component {
     }
   }
 
+  colocaProdutoCarrinho = id => {
+    const produtoSelecionado = this.state.listaDeProdutos.find(produto => {
+      return produto.id === id
+    })
+    
+    if( this.state.produtosSelecionados.includes(produtoSelecionado)) {
+      alert("Você já adicionou esse produto no carrinho!")
+    } else {
+      alert("Produto adicionado com sucesso!")
+      this.setState({ produtosSelecionados: [...this.state.produtosSelecionados, produtoSelecionado] });
+    } 
+  }
+
+  onClickAbreCarrinho = () => {
+    this.setState({ paginaAtual: "Carrinho" })
+  }
+
   render() {
     let itensFiltrados = this.state.listaDeProdutos
 
@@ -88,9 +116,6 @@ export class AppContainer extends Component {
       })
     }
 
-    console.log(this.state.valorInputMin)
-
-    console.log(this.state.paginaAtual)
     let renderiza = "";
     switch (this.state.paginaAtual) {
     case 'Vender':
@@ -101,37 +126,39 @@ export class AppContainer extends Component {
       renderiza =
         <div>
           <ComponentFiltro mudaPagina={this.mudaPagina} valorMin={this.state.valorInputMin} valorMax={this.state.valorInputMax} onChangeValorMin={this.onChangeValorMin} onChangeValorMax={this.onChangeValorMax} />
-          <CardCategoria mudaPagina={this.mudaPagina} lista={itensFiltrados}/>  
+          <CardCategoria mudaPagina={this.mudaPagina} lista={itensFiltrados} onClickCompraProduto={this.colocaProdutoCarrinho} onClickAbreCarrinho={this.onClickAbreCarrinho}/>  
         </div>
       break; 
     case 'Roupas':
       renderiza =
-        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual} lista={this.state.listaDeProdutos}/>     
+        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual} lista={this.state.listaDeProdutos} onClickCompraProduto={this.colocaProdutoCarrinho} onClickAbreCarrinho={this.onClickAbreCarrinho}/>     
       break; 
     case 'Calcados':
       renderiza =
-        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual} lista={this.state.listaDeProdutos}/>     
+        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual} lista={this.state.listaDeProdutos} onClickCompraProduto={this.colocaProdutoCarrinho} onClickAbreCarrinho={this.onClickAbreCarrinho}/>     
       break; 
     case 'Acessórios':
       renderiza =
-        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual} lista={this.state.listaDeProdutos}/>     
+        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual} lista={this.state.listaDeProdutos} onClickCompraProduto={this.colocaProdutoCarrinho} onClickAbreCarrinho={this.onClickAbreCarrinho}/>     
       break; 
     case 'Outros':
       renderiza =
-        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual} lista={this.state.listaDeProdutos}/>     
+        <PaginaCategoria mudaPagina={this.mudaPagina} paginaCategoria={this.state.paginaAtual} lista={this.state.listaDeProdutos} onClickCompraProduto={this.colocaProdutoCarrinho} onClickAbreCarrinho={this.onClickAbreCarrinho}/>     
       break;
     case 'Carrinho':
       renderiza =
-        <Carrinho mudaPagina={this.mudaPagina}/>     
+        <Carrinho mudaPagina={this.mudaPagina} produtosSelecionados={this.state.produtosSelecionados} onClickAbreCarrinho={this.colocaProdutoCarrinho} />     
       break;
     default: 
     renderiza =
       <ComponentFiltro mudaPagina={this.mudaPagina} />
   }
 
+const numeroProdutosCarrinho = (this.state.produtosSelecionados.length !== 0) ? <NumeroCarrinho>{this.state.produtosSelecionados.length}</NumeroCarrinho> : null;
+
   return (
       <div>
-        <Header mudaPagina={this.mudaPagina}/>
+        <Header mudaPagina={this.mudaPagina} produtosCarrinho={numeroProdutosCarrinho}/>
         {renderiza}
         <Footer />
       </div>

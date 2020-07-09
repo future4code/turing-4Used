@@ -36,38 +36,7 @@ const BotaoFinaliza = withStyles({ //estilo do botão para texto branco
 
 export class Carrinho extends Component {
   state= {
-    produto:[
-      {
-        id: "123",
-        name: "Produto",
-        description: "Esse é um produto muito legal!",
-        price: 10,
-        paymentMethod: "card",
-        category: "Categoria 1",
-        photos: ["https://picsum.photos/300/200"],
-        installments: 3
-      },
-      {
-        id: "321",
-        name: "Produto",
-        description: "Esse é um produto muito legal!",
-        price: 20,
-        paymentMethod: "card",
-        category: "Categoria 1",
-        photos: ["https://picsum.photos/300/200"],
-        installments: 3
-      },
-      {
-        id: "231",
-        name: "Produto",
-        description: "Esse é um produto muito legal!",
-        price: 30,
-        paymentMethod: "card",
-        category: "Categoria 1",
-        photos: ["https://picsum.photos/300/200"],
-        installments: 3
-      }
-    ],
+    produto: this.props.produtosSelecionados || [],
     total: 0
   }
 

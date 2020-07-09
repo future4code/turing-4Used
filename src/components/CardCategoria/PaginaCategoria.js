@@ -87,6 +87,8 @@ export class CardCategoria extends React.Component {
               produtoDescricao = {item.description}
               produtoPagamento = {item.paymentMethod}
               produtoParcelas = {item.installments}
+              onClickCompraProduto = {()=>this.props.onClickCompraProduto(item.id)}
+              onClickAbreCarrinho = {this.props.onClickAbreCarrinho}
             />
         </GridItem>
         }

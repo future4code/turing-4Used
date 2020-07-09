@@ -20,6 +20,7 @@ import { array } from 'prop-types';
   const Botaozao = withStyles({ //estilo do botão para texto branco
     root: {
       color: 'white',
+      marginRight: 16
     },
   })(Button);
 
@@ -115,7 +116,8 @@ export class DetalheProduto extends Component {
                         />
                     </RadioGroup>
                     {metodosDePagamento}
-                    <Botaozao variant="contained" color="primary" >Adicionar ao Carrinho</Botaozao>
+                    <Botaozao variant="contained" color="primary" onClick={this.props.onClickCompraProdutoDetalhe}>Adicionar ao Carrinho</Botaozao>
+                    <Botaozao variant="contained" color="primary" onClick={this.props.onClickIrParaCarrinho}>Ir para o Carrinho</Botaozao>
                 </Dados>
                 <Imagens>
                     {this.props.imagens.map( (imagem, idx, arr) => {

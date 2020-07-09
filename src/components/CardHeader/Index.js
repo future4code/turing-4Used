@@ -8,6 +8,8 @@ import Button from "@material-ui/core/Button";
 import IconButton from '@material-ui/core/IconButton';
 import Carrinho from "@material-ui/icons/ShoppingCart";
 import Divider from "@material-ui/core/Divider";
+import { Typography } from "@material-ui/core";
+
 
 const BotaoHeader = withStyles({ //estilo do botão para texto branco
   root: {
@@ -31,6 +33,7 @@ export default function Header(props) {
                 <Button size="small" onClick={() => props.mudaPagina("Outros")}>OUTROS</Button>         
                 <IconButton aria-label="Carrinho">
                     <Carrinho color="primary" fontSize="small" onClick={() => props.mudaPagina("Carrinho")}/>
+                    {props.produtosCarrinho}
                 </IconButton>
             </Menu>
                   
