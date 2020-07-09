@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import styled from 'styled-components';
 
 import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -11,15 +9,11 @@ import axios from 'axios';
 
 const ContainerCadastrarProdutos = styled.div `
     width: 500px;
-    height: 90vh;
+    min-height: 90vh;
     margin: 0 auto;
+    padding-bottom: 40px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-`;
-
-const MetodosDePagamento = styled.div `
-    display: flex;
     justify-content: space-between;
 `;
 
@@ -33,52 +27,34 @@ const AdicionarMaisFotos = styled.span `
     line-height: 45px;
 `;
 
-const ContainerCriaçãoProduto = styled.div `
-    
-`;
 
 export class ComponentPostarProduto extends Component {
     state = {
         produto: [
-        {
-        name: "",
-        description: "",
-        price: "",
-        paymentMethod: "",
-        category:"",
-        photos: [],
-        installments: ""
-        },
     ],
 
     inputNameValue: "",
-    inputDescripitionValue: "",
+    inputDescriptionValue: "",
     inputPriceValue: "",
     inputCartaoValue: "",
     inputParcelasValue: "",
-    inputPhotosValue: "",
+    inputPhotosValue: [],
     inputCategoriaValue: "",
 
     };
 
     criarProduto = () => {
-        console.log(this.state.inputPhotosValue)
     
         const body = {
             name: this.state.inputNameValue,
-            description: this.state.inputDescripitionValue ,
+            description: this.state.inputDescriptionValue ,
             price: this.state.inputPriceValue,
             paymentMethod: this.state.inputCartaoValue,
             category: this.state.inputCategoriaValue,
-            photos:[...this.state.inputPhotosValue],
+            photos: this.state.inputPhotosValue,
             installments: this.state.inputParcelasValue
         }
-        axios.post ("https://us-central1-labenu-apis.cloudfunctions.net/fourUsedOne/products", body, 
-        // {
-        //     headers: {
-        //     Content-Type: application/json
-        //     }
-        // }
+        axios.post ("https://us-central1-labenu-apis.cloudfunctions.net/fourUsedOne/products", body
         )
         .then(() => {
             alert('Produto cadastrado com sucesso!')
@@ -109,7 +85,7 @@ export class ComponentPostarProduto extends Component {
     }
 
     changeInputPhotosValue = (e) => {
-        this.setState({inputPhotosValue: e.target.value})      
+        this.setState({inputPhotosValue: [...this.state.inputPhotosValue, e.target.value]})      
     }
 
     changeInputCategoriaValue = (e) => {
@@ -119,7 +95,6 @@ export class ComponentPostarProduto extends Component {
 
   render() {
     return (
-      <ContainerCriaçãoProduto>
         <ContainerCadastrarProdutos>
             <h1>Incluir Produto</h1>
            
@@ -172,10 +147,10 @@ export class ComponentPostarProduto extends Component {
                 <MenuItem value="">
                 <em>None</em>
                 </MenuItem>
-                <MenuItem value={"roupas"}>Roupas</MenuItem>
-                <MenuItem value={"calcados"}>Calçados</MenuItem>
-                <MenuItem value={"acessorios"}>Acessórios</MenuItem>
-                <MenuItem value={"outros"}>Outros</MenuItem>
+                <MenuItem value={"Roupas"}>Roupas</MenuItem>
+                <MenuItem value={"Calcados"}>Calçados</MenuItem>
+                <MenuItem value={"Acessorios"}>Acessórios</MenuItem>
+                <MenuItem value={"Outros"}>Outros</MenuItem>
             </Select>
 
             <h3>Imagens do produto</h3>
@@ -195,8 +170,11 @@ export class ComponentPostarProduto extends Component {
                 Cadastrar
             </Button>
             
+            <Button variant="contained" onClick={this.props.abreTelaDeletarProduto}>
+                Apagar produto
+            </Button>
+            
         </ContainerCadastrarProdutos>
-      </ContainerCriaçãoProduto>
     )
   }
 }
