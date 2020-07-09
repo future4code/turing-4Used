@@ -14,37 +14,29 @@ const BotaoFiltrar = withStyles({ //estilo do botão para texto branco
 
 export class ComponentFiltro extends Component {
   state = {
-    valorInputMin: "",
-    valorInputMax: "",
-    valorCategoria: "",
+    
   }
 
-  onChangeValorMin = (e) => {
-    this.setState({valorInputMin: e.target.value})
-    console.log(this.state.valorInputMin)
-  }
+  
 
-  onChangeValorMax = (e) => {
-    this.setState({valorInputMax: e.target.value})
-    console.log(this.state.valorInputMax)
-  }
-
-  onChangeValorCategoria = (e) => {
-    this.setState({valorCategoria: e.target.value})
-    console.log(this.state.valorCategoria)
-  }
   render() {   
+
+
+
+    
     return (
       <ComponentFiltroContainer>
         <ContainerFiltro>
           <TextField
-            onChange={this.onChangeValorMin}
+            onChange={this.props.onChangeValorMin}
+            value={this.props.valorMin}
             id="valor-min"
             label="Valor Mínimo"
             variant="outlined"
           />
           <TextField
-            onChange={this.onChangeValorMax}
+            onChange={this.props.onChangeValorMax}
+            value={this.props.valorMax}
             id="valor-max"
             label="Valor Máximo"
             variant="outlined"
