@@ -7,6 +7,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 
 const ContainerCadastrarProdutos = styled.div `
     width: 500px;
@@ -37,59 +38,127 @@ const ContainerCriaçãoProduto = styled.div `
 `;
 
 export class ComponentPostarProduto extends Component {
+    state = {
+        produto: [
+        {
+        name: "",
+        description: "",
+        price: "",
+        paymentMethod: "",
+        category:"",
+        photos: [],
+        installments: ""
+        },
+    ],
+
+    inputNameValue: "",
+    inputDescripitionValue: "",
+    inputPriceValue: "",
+    inputCartaoValue: "",
+    inputParcelasValue: "",
+    inputPhotosValue: "",
+    inputCategoriaValue: "",
+
+    };
+
+    criarProduto = () => {
+        console.log(this.state.inputPhotosValue)
+    
+        const body = {
+            name: this.state.inputNameValue,
+            description: this.state.inputDescripitionValue ,
+            price: this.state.inputPriceValue,
+            paymentMethod: this.state.inputCartaoValue,
+            category: this.state.inputCategoriaValue,
+            photos:[...this.state.inputPhotosValue],
+            installments: this.state.inputParcelasValue
+        }
+        axios.post ("https://us-central1-labenu-apis.cloudfunctions.net/fourUsedOne/products", body, 
+        // {
+        //     headers: {
+        //     Content-Type: application/json
+        //     }
+        // }
+        )
+        .then(() => {
+            alert('Produto cadastrado com sucesso!')
+        }).catch(error => {
+            console.log(error.message)
+        })
+    }
+
+
+    changeInputNameValue = (e) => {
+        this.setState({inputNameValue: e.target.value})
+    }
+
+    changeInputDescriptionValue = (e) => {
+        this.setState({inputDescriptionValue: e.target.value})     
+    }
+
+    changeInputPriceValue = (e) => {
+        this.setState({inputPriceValue: e.target.value})
+    }
+
+    changeInputCartaoValue = (e) => {
+        this.setState({inputCartaoValue: e.target.value})      
+    }
+
+    changeInputParcelasValue = (e) => {
+        this.setState({inputParcelasValue: e.target.value})      
+    }
+
+    changeInputPhotosValue = (e) => {
+        this.setState({inputPhotosValue: e.target.value})      
+    }
+
+    changeInputCategoriaValue = (e) => {
+        this.setState({inputCategoriaValue: e.target.value})      
+    }
+
+
   render() {
     return (
       <ContainerCriaçãoProduto>
         <ContainerCadastrarProdutos>
             <h1>Incluir Produto</h1>
+           
             <TextField
                 id="Name"
                 label="Nome do produto"
                 variant="outlined"
+                value={this.state.produto.name}
+                onChange={this.changeInputNameValue}
             />
             <TextField
                 id="Name"
                 label="Descrição"
                 variant="outlined"
+                value={this.state.produto.description}
+                onChange={this.changeInputDescriptionValue}
             />
             <TextField
                 id="Name"
                 label="Preço"
                 variant="outlined"
                 type="number"
+                value={this.state.produto.price}
+                onChange={this.changeInputPriceValue}
             />
 
-            <h3>Métodos de pagamento</h3>
-            <MetodosDePagamento>
-                <FormControlLabel
-                control={
-                    <Checkbox value="debito" />
-                } 
-                label="Cartão de débito"
-                />
-                <FormControlLabel
-                control={
-                    <Checkbox value="credito" />
-                } 
-                label="Cartão de crédito"
-                />
-                <FormControlLabel
-                control={
-                    <Checkbox value="boleto" />
-                } 
-                label="Boleto"
-                />
-            </MetodosDePagamento>
+
+            <h3>Método de pagamento</h3>
+            <Select value={this.state.inputCartaoValue} onChange={this.changeInputCartaoValue}>
+                <MenuItem value="">
+                <em>None</em>
+                </MenuItem>
+                <MenuItem value="debito">Cartão de débito</MenuItem>
+                <MenuItem value="credito">Cartão de crédito</MenuItem>
+                <MenuItem value="boleto">Boleto</MenuItem>
+            </Select>
 
             <h3>Parcelas</h3>
-            <Select
-                // value={this.state.age}
-                // onChange={this.handleChange}
-                // inputProps={{
-                // name: 'age',
-                // id: 'age-simple',
-                // }}
-            >
+            <Select value={this.state.inputParcelasValue} onChange={this.changeInputParcelasValue}>
                 <MenuItem value="">
                 <em>None</em>
                 </MenuItem>
@@ -99,14 +168,7 @@ export class ComponentPostarProduto extends Component {
             </Select>
 
             <h3>Categoria</h3>
-            <Select
-                // value={this.state.age}
-                // onChange={this.handleChange}
-                // inputProps={{
-                // name: 'age',
-                // id: 'age-simple',
-                // }}
-            >
+            <Select value={this.state.inputCategoriaValue} onChange={this.changeInputCategoriaValue}>
                 <MenuItem value="">
                 <em>None</em>
                 </MenuItem>
@@ -124,9 +186,12 @@ export class ComponentPostarProduto extends Component {
                     id="Name"
                     label="Link da imagem"
                     variant="outlined"
-                /> <AdicionarMaisFotos>+</AdicionarMaisFotos>
+                    value={this.state.produto.photos}
+                    onChange={this.changeInputPhotosValue}
+                /> 
+                <AdicionarMaisFotos>+</AdicionarMaisFotos>
             </ImagemEBotaoMaisFotos>
-            <Button variant="contained">
+            <Button variant="contained" onClick={this.criarProduto}>
                 Cadastrar
             </Button>
             
