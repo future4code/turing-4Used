@@ -15,15 +15,10 @@ const styles = {
 
 export class ComponentFiltro extends Component {
   state = {
-      valorInputOrdenacao: "",
-  }
-
-  onChangeOrdenacao = (e) => {
-    this.setState({valorInputOrdenacao: e.target.value})
+      
   }
 
   render() {   
-    console.log(this.state.valorInputOrdenacao)
     const { classes } = this.props;
 
 
@@ -49,11 +44,10 @@ export class ComponentFiltro extends Component {
             <InputLabel htmlFor="outlined-age-simple">Ordenar</InputLabel>
             <Select
               labelId="ordenacao"
-              value={this.state.valorInputOrdenacao}
-              onChange={this.onChangeOrdenacao}
+              value={this.props.valorInputOrdenacao}
+              onChange={this.props.onChangeOrdenacao}
               input={
                 <OutlinedInput
-                name="ordenação"
                 id="outlined-age-simple"
                 />
               }
@@ -61,7 +55,7 @@ export class ComponentFiltro extends Component {
               <MenuItem value="">
               <em>None</em>
               </MenuItem>
-              <MenuItem value={"nome"}>Nome</MenuItem>
+              <MenuItem value={this.props.valorNome}>Nome</MenuItem>
               <MenuItem value={"valor"}>Valor</MenuItem>
             </Select>
           </FormControl>

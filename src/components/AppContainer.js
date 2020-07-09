@@ -27,12 +27,33 @@ export class AppContainer extends Component {
     valorInputMin: "",
     valorInputMax: "",
     valorCategoria: "",
+    valorInputOrdenacao: "",
     listaDeProdutos: [],
     produtosSelecionados: []
   }
 
   componentDidMount = () => {
     this.listarProdutos();
+  }
+
+  onChangeOrdenacao = (e) => {
+    this.setState({valorInputOrdenacao: e.target.value})
+    
+    switch (e.target.value) {
+      case 'nome':
+        console.log("ta chamando")
+        return this.setState({listaDeProdutos: this.state.listaDeProdutos.sort((a, b) => {
+           if(b.name > a.name) {
+            return -1;
+          }
+        })})
+      case 'valor':
+        return this.setState({listaDeProdutos: this.state.listaDeProdutos.sort((a, b) => {
+          return a.price - b.price
+          })})
+      default:
+        return this.listarProdutos()
+    }
   }
 
   onChangeValorMin = (e) => {
@@ -114,6 +135,7 @@ export class AppContainer extends Component {
   }
 
   render() {
+    console.log(this.state.listaDeProdutos)
     let itensFiltrados = this.state.listaDeProdutos
 
     if(this.state.valorInputMin !== "") {
@@ -136,7 +158,7 @@ export class AppContainer extends Component {
     case 'Inicio':
       renderiza =
         <div>
-          <ComponentFiltro mudaPagina={this.mudaPagina} valorMin={this.state.valorInputMin} valorMax={this.state.valorInputMax} onChangeValorMin={this.onChangeValorMin} onChangeValorMax={this.onChangeValorMax} />
+          <ComponentFiltro mudaPagina={this.mudaPagina} valorNome="nome" onChangeOrdenacao={this.onChangeOrdenacao}  valorInputOrdenacao={this.state.valorInputOrdenacao} valorMin={this.state.valorInputMin} valorMax={this.state.valorInputMax} onChangeValorMin={this.onChangeValorMin} onChangeValorMax={this.onChangeValorMax} />
           <CardCategoria mudaPagina={this.mudaPagina} lista={itensFiltrados} onClickCompraProduto={this.colocaProdutoCarrinho} onClickAbreCarrinho={this.onClickAbreCarrinho}/>  
         </div>
       break; 
