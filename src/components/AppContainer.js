@@ -8,6 +8,7 @@ import Header from "./CardHeader/Index";
 import CardCategoria from './CardCategoria/CardCategoria';
 import PaginaCategoria from './CardCategoria/PaginaCategoria';
 import Carrinho from './Carrinho'
+import DeletaProduto from './DeletaProduto'
 
 const NumeroCarrinho = styled.p `
   width: 14px;
@@ -133,6 +134,10 @@ export class AppContainer extends Component {
     this.setState({ paginaAtual: "Carrinho" })
   }
 
+  abreTelaDeletarProduto = () => {
+    this.setState({ paginaAtual: "Deletar" })
+  }
+
   render() {
     console.log(this.state.listaDeProdutos)
     let itensFiltrados = this.state.listaDeProdutos
@@ -152,7 +157,7 @@ export class AppContainer extends Component {
     switch (this.state.paginaAtual) {
     case 'Vender':
       renderiza =
-        <ComponentPostarProduto mudaPagina={this.mudaPagina} />
+        <ComponentPostarProduto mudaPagina={this.mudaPagina} abreTelaDeletarProduto={this.abreTelaDeletarProduto} />
       break;
     case 'Inicio':
       renderiza =
@@ -180,6 +185,10 @@ export class AppContainer extends Component {
     case 'Carrinho':
       renderiza =
         <Carrinho mudaPagina={this.mudaPagina} produtosSelecionados={this.state.produtosSelecionados} onClickAbreCarrinho={this.colocaProdutoCarrinho} onClickDeletaProduto={this.deletaProdutoCarrinho} />     
+      break;
+    case 'Deletar':
+      renderiza =
+        <DeletaProduto />     
       break;
     default: 
     renderiza =

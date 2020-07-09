@@ -78,6 +78,11 @@ const DeleteContainer = styled.div `
   width: 100vw;
   justify-content: center;
   align-items: center;
+  padding-bottom: 80px;
+`
+const Titulo = styled.h1 `
+  text-align: center;
+  width: 100%;
 `
 
 class DeletaProduto extends React.Component{
@@ -117,6 +122,7 @@ class DeletaProduto extends React.Component{
     const { classes } = this.props;
     return (
 		  <DeleteContainer>
+        <Titulo>Escolha um produto para deletar</Titulo>
         {this.state.listaDeProdutos.map(produto =>{
           return(
             <Card className={classes.card} theme={tema}>
