@@ -77,12 +77,15 @@ class CardProduto extends React.Component{
 
   mostrarDetalheProduto = () => {
     this.setState({ detalheProduto: true })
-    console.log("oi")
   }
 
   fecharDetalheProduto = () => {
-    console.log("oi")
     this.setState({ detalheProduto: false })
+  }
+
+  abreCarrinho = () => {
+    this.setState({ detalheProduto: false });
+    this.props.onClickAbreCarrinho()
   }
   
   render() {
@@ -98,6 +101,8 @@ class CardProduto extends React.Component{
     pagamento={this.props.produtoPagamento} 
     parcelas={this.props.produtoParcelas}
     onClickFechaDetalhe={this.fecharDetalheProduto}
+    onClickCompraProdutoDetalhe={this.props.onClickCompraProduto}
+    onClickIrParaCarrinho={this.abreCarrinho}
     /> 
     : null;
     
@@ -111,7 +116,7 @@ class CardProduto extends React.Component{
             </CardContent>
             <PriceContainer>
               <Chip label={this.props.preco} className={classes.chip} />
-              <ShoppingCart size="medium" color="primary" />
+              <ShoppingCart size="medium" color="primary" onClick={this.props.onClickCompraProduto} />
             </PriceContainer>
             {detalheProduto}
           </Card>
