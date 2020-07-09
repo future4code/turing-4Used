@@ -64,6 +64,7 @@ export class Carrinho extends Component {
       return true
     })
     this.setState({produto: novosprodutos})
+    this.props.onClickDeletaProduto(prodId);
   }
 
   render() {
