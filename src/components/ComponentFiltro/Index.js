@@ -53,7 +53,7 @@ export class ComponentFiltro extends Component {
               }
             >
               <MenuItem value="">
-              <em>None</em>
+              Ordenar
               </MenuItem>
               <MenuItem value={this.props.valorNome}>Nome</MenuItem>
               <MenuItem value={"valor"}>Valor</MenuItem>
