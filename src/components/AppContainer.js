@@ -98,6 +98,17 @@ export class AppContainer extends Component {
     } 
   }
 
+  deletaProdutoCarrinho = prodId => {
+    const novoProdutosSelecionados = this.state.produtosSelecionados.filter( produto => {
+      if( produto.id === prodId) {
+        return produto.id !== prodId
+      }
+    })
+
+    this.setState({ produtosSelecionados: novoProdutosSelecionados })
+
+  }
+
   onClickAbreCarrinho = () => {
     this.setState({ paginaAtual: "Carrinho" })
   }
@@ -147,7 +158,7 @@ export class AppContainer extends Component {
       break;
     case 'Carrinho':
       renderiza =
-        <Carrinho mudaPagina={this.mudaPagina} produtosSelecionados={this.state.produtosSelecionados} onClickAbreCarrinho={this.colocaProdutoCarrinho} />     
+        <Carrinho mudaPagina={this.mudaPagina} produtosSelecionados={this.state.produtosSelecionados} onClickAbreCarrinho={this.colocaProdutoCarrinho} onClickDeletaProduto={this.deletaProdutoCarrinho} />     
       break;
     default: 
     renderiza =

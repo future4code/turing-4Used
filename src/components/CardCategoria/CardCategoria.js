@@ -4,7 +4,6 @@ import axios from 'axios';
 import {Container, CardsHeader, GridProdutos, GridItem} from "./styles";
 
 import PropTypes from 'prop-types';
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import { withStyles } from '@material-ui/core/styles';
 
 import Typography from '@material-ui/core/Typography';
@@ -12,23 +11,6 @@ import Divider from '@material-ui/core/Divider';
 
 import CardProduto from '../CardProduto/CardProduto';
 import Axios from 'axios';
-
-const tema = createMuiTheme({
-    palette: {
-      primary: {
-        main: "#00BCD5"
-      },
-      secondary: {
-        main: "#CC1474"
-      },
-      textPrimary: {
-        main: "#FF0000"
-      },
-      textSecondary: {
-        main: "#FFFFFF"
-      },
-    }
-  });
 
 const styles = {
   titulo: {
@@ -98,7 +80,7 @@ export class CardCategoria extends React.Component {
 
 
     return (
-      <MuiThemeProvider theme={tema}>
+      <div>
           {grupoCategorias.map( grupo => {
             return (
               <Container>
@@ -121,7 +103,7 @@ export class CardCategoria extends React.Component {
             )
           })
           }
-      </MuiThemeProvider>
+      </div>
     );
   }
 }
