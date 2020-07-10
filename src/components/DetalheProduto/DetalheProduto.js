@@ -8,13 +8,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import Button from '@material-ui/core/Button';
 
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-
-
 import Close from '@material-ui/icons/Close';
 
 import { withStyles } from '@material-ui/core/styles';
+import { Total, Detalhe, Dados, Imagens, BtnClose, PagamentoContainer, GridProdutos, GridItem, ItemImagem} from './styles';
 
   const Botaozao = withStyles({ //estilo do botão para texto branco
     root: {
@@ -23,56 +20,7 @@ import { withStyles } from '@material-ui/core/styles';
     },
   })(Button);
 
-const Total = styled.div`
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 2;
-`
-const Detalhe = styled.div`
-position: relative;
-background-color: #F2F2F2;
-display: grid;
-grid-template-columns: 3fr 2fr;
-grid-template-rows: 1fr;
-min-height: 90%;
-width: 80%;
-padding: 40px;
-box-shadow:
-    0px 1px 3px 0px rgba(0,0,0,0.2),
-    0px 1px 1px 0px rgba(0,0,0,0.14),
-    0px 2px 1px -1px rgba(0,0,0,0.12);
-border-radius: 4px;
-    > * {
-        margin: 16px;
-    }
-`
-const Dados = styled.div`
-    grid-column: 1/2;
-`
-const Imagens = styled.div`
-    align-self: center;
-    grid-column: 2/3;
-`
 
-const BtnCLose = styled.button`
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-`
-
-const PagamentoContainer = styled.div`
-    margin-bottom: 24px;
-`
 
 export class DetalheProduto extends Component {
     state = {
@@ -91,9 +39,9 @@ export class DetalheProduto extends Component {
     return (
         <Total>
             <Detalhe>
-            <BtnCLose>
+            <BtnClose>
                 <Close size="medium" color="primary" onClick={this.props.onClickFechaDetalhe} />
-            </BtnCLose>
+            </BtnClose>
                 <Dados>
                     <h1>{this.props.produto}</h1>
                     <Chip label={this.props.categoria} />
@@ -119,13 +67,13 @@ export class DetalheProduto extends Component {
                     <Botaozao variant="contained" color="primary" onClick={this.props.onClickIrParaCarrinho}>Ir para o Carrinho</Botaozao>
                 </Dados>
                 <Imagens>
-                    <GridList cellHeight={240} cols={3}>
+                    <GridProdutos>
                     {this.props.imagens.map( (imagem, idx, arr) => {
-                        return <GridListTile >
-                                <img  src={imagem}/>
-                            </GridListTile>
+                        return <GridItem >
+                                <ItemImagem  src={imagem}/>
+                            </GridItem>
                     })}
-                    </GridList>
+                    </GridProdutos>
                 </Imagens>
             </Detalhe>
         </Total>

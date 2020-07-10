@@ -97,7 +97,7 @@ class CardProduto extends React.Component{
     categoria={this.props.produtoCategoria} 
     descricao={this.props.produtoDescricao} 
     preco={this.props.preco} 
-    imagens={this.props.imagem} 
+    imagens={this.props.imagem}
     pagamento={this.props.produtoPagamento} 
     parcelas={this.props.produtoParcelas}
     onClickFechaDetalhe={this.fecharDetalheProduto}
@@ -111,7 +111,7 @@ class CardProduto extends React.Component{
             <CardContent onClick={this.mostrarDetalheProduto}>
               <CardMedia
               className={classes.media}
-              image={this.props.imagem}
+              image={this.props.imagemPrincipal}
               />
             </CardContent>
             <PriceContainer>
