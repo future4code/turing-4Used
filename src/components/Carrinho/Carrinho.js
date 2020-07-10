@@ -9,44 +9,19 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 export class Carrinho extends Component {
-  state= {
-    produto: this.props.produtosSelecionados || [],
-    total: 0
-  }
   componentDidMount = () => {
-    let valorTotal = 0
-    this.state.produto.forEach((produto) => {
-      valorTotal += produto.price
-      this.setState({total: valorTotal})
-    })
-  }
-  onClickFinalizarCompra = () => {
-    alert("Obrigado por comprar conosco! Volte sempre.")
-    this.setState({produto: []})
-  }
-  onClickDeletaProdutoDoCarrinho = (prodId, prodPrice) => {
-    let diminuiPreco = this.state.total
-    const novosprodutos = this.state.produto.filter((produto, indice, array) => {
-      if(produto.id === prodId){
-        diminuiPreco = diminuiPreco - prodPrice
-        this.setState({total: diminuiPreco})
-        return false
-      }
-      return true
-    })
-    this.setState({produto: novosprodutos})
-    this.props.onClickDeletaProduto(prodId);
+    this.props.somaTotal()
   }
   render() {
     const carrinhoComProdutos = <Car>
       <Cabecalho>
         <h1>Seu Carrinho</h1>
-        <h3>Total: R$ {this.state.total}</h3>
+        <h3>Total: R$ {this.props.total}</h3>
       </Cabecalho>
       <Paper>
         <Table>
           <TableBody>   
-            {this.state.produto.map(prod => (         
+            {this.props.produtosSelecionados.map(prod => (         
               <TableRow>
                 <TableCell component="th" scope="row">
                   {prod.name}
@@ -55,7 +30,7 @@ export class Carrinho extends Component {
                   R$ {prod.price}
                 </TableCell>
                 <TableCell align="right">
-                  <IconButton onClick= {() => this.onClickDeletaProdutoDoCarrinho(prod.id, prod.price)}>
+                  <IconButton onClick= {() => this.props.onClickDeletaProdutoDoCarrinho(prod.id, prod.price)}>
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
@@ -64,14 +39,14 @@ export class Carrinho extends Component {
           </TableBody>
         </Table>
       </Paper>
-      <BotaoFinaliza variant="contained" color="primary" onClick= {this.onClickFinalizarCompra}>Finalizar Compra</BotaoFinaliza>
+      <BotaoFinaliza variant="contained" color="primary" onClick= {this.props.onClickFinalizarCompra}>Finalizar Compra</BotaoFinaliza>
     </Car>
     const carrinhoSemProdutos = <Car>
       <h2>Ainda não tem produtos adicionados no seu carrinho</h2>
     </Car>
     return (
       <Total>
-        {this.state.produto.length !== 0 ? carrinhoComProdutos : carrinhoSemProdutos}
+        {this.props.produtosSelecionados.length !== 0 ? carrinhoComProdutos : carrinhoSemProdutos}
       </Total>
     )
   }
