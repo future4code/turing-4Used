@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import Button from "@material-ui/core/Button";
+import { withStyles } from '@material-ui/core/styles'; 
 
 export const HeaderContainer = styled.div`
   margin-bottom: 16px;
@@ -33,3 +35,8 @@ export const Menu = styled.div`
   align-items: center;
 `;
 
+export const BotaoHeader = withStyles({ 
+  root: {
+    color: 'white',
+  },
+})(Button);
