@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
-import axios from 'axios';
 
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import { baseUrl } from '../../constants/index.js';
+import axios from 'axios';
+import { baseUrl } from '../constants/index.js';
 
 const ContainerCadastrarProdutos = styled.div `
     width: 500px;
@@ -31,14 +31,16 @@ const AdicionarMaisFotos = styled.span `
 
 export class ComponentPostarProduto extends Component {
     state = {
-        inputNameValue: "",
-        inputDescriptionValue: "",
-        inputPriceValue: "",
-        inputCartaoValue: "",
-        inputParcelasValue: "",
-        inputPhotosValue: ["", "", "", "", ""],
-        inputCategoriaValue: "",
-        addImagens: ['ImagemEBotaoMaisFotos']
+        produto: [],
+
+    inputNameValue: "",
+    inputDescriptionValue: "",
+    inputPriceValue: "",
+    inputCartaoValue: "",
+    inputParcelasValue: "",
+    inputPhotosValue: [],
+    inputCategoriaValue: "",
+
     };
 
     criarProduto = () => {
@@ -54,13 +56,12 @@ export class ComponentPostarProduto extends Component {
         }
         axios.post (baseUrl, body)
         .then(() => {
-            alert('Produto cadastrado com sucesso!');
-            this.setState({ inputNameValue: "", inputDescriptionValue: "", inputPriceValue:"", inputCartaoValue:"", inputParcelasValue:"", inputPhotosValue:["", "", "", "", ""], inputCategoriaValue:""});
-            this.props.atualizaProdutos();
+            alert('Produto cadastrado com sucesso!')
         }).catch(error => {
             console.log(error.message)
         })
     }
+
 
     changeInputNameValue = (e) => {
         this.setState({inputNameValue: e.target.value})
@@ -83,38 +84,15 @@ export class ComponentPostarProduto extends Component {
     }
 
     changeInputPhotosValue = (e) => {
-        
-        const index = e.target.id;
-        const inputValue = this.state.inputPhotosValue.find( (input, idx) => {
-            return idx == index
-        })
-
-        const novoInputsPhotosValue = this.state.inputPhotosValue.map( (input, idx) => {
-            if( idx == index ) {
-                const novoInput = e.target.value
-                return novoInput
-            } else {
-                return input
-            }
-        })
-        this.setState({inputPhotosValue: novoInputsPhotosValue})
+        this.setState({inputPhotosValue: [...this.state.inputPhotosValue, e.target.value]})      
     }
 
     changeInputCategoriaValue = (e) => {
         this.setState({inputCategoriaValue: e.target.value})      
     }
 
-    adicionaImagem = () => {
-        if(this.state.addImagens.length < 5) {
-            let divAddImagens = this.state.addImagens;
-            divAddImagens.push('novoAddImagens')
-            this.setState({ addImagens: divAddImagens })
-        }
-    }
-
 
   render() {
-
     return (
         <ContainerCadastrarProdutos>
             <h1>Incluir Produto</h1>
@@ -123,14 +101,14 @@ export class ComponentPostarProduto extends Component {
                 id="Name"
                 label="Nome do produto"
                 variant="outlined"
-                value={this.state.inputNameValue}
+                value={this.state.produto.name}
                 onChange={this.changeInputNameValue}
             />
             <TextField
                 id="Name"
                 label="Descrição"
                 variant="outlined"
-                value={this.state.inputDescriptionValue}
+                value={this.state.produto.description}
                 onChange={this.changeInputDescriptionValue}
             />
             <TextField
@@ -138,18 +116,19 @@ export class ComponentPostarProduto extends Component {
                 label="Preço"
                 variant="outlined"
                 type="number"
-                value={this.state.inputPriceValue}
+                value={this.state.produto.price}
                 onChange={this.changeInputPriceValue}
             />
+
 
             <h3>Método de pagamento</h3>
             <Select value={this.state.inputCartaoValue} onChange={this.changeInputCartaoValue}>
                 <MenuItem value="">
                 <em>None</em>
                 </MenuItem>
-                <MenuItem value="Cartão de Débito">Cartão de débito</MenuItem>
-                <MenuItem value="Cartão de Crédito">Cartão de crédito</MenuItem>
-                <MenuItem value="Boleto Bancário">Boleto</MenuItem>
+                <MenuItem value="debito">Cartão de débito</MenuItem>
+                <MenuItem value="credito">Cartão de crédito</MenuItem>
+                <MenuItem value="boleto">Boleto</MenuItem>
             </Select>
 
             <h3>Parcelas</h3>
@@ -169,25 +148,23 @@ export class ComponentPostarProduto extends Component {
                 </MenuItem>
                 <MenuItem value={"Roupas"}>Roupas</MenuItem>
                 <MenuItem value={"Calcados"}>Calçados</MenuItem>
-                <MenuItem value={"Acessórios"}>Acessórios</MenuItem>
+                <MenuItem value={"Acessorios"}>Acessórios</MenuItem>
                 <MenuItem value={"Outros"}>Outros</MenuItem>
             </Select>
 
             <h3>Imagens do produto</h3>
             <p>Clique ao lado para adicionar mais imagens</p>
-            {this.state.addImagens.map((divAddImagens, i) => {
-                return <ImagemEBotaoMaisFotos key={divAddImagens} data-block={i}>
-                    <TextField
-                        fullWidth
-                        id={i}
-                        label="Link da imagem"
-                        variant="outlined"
-                        value={this.state.inputPhotosValue[i]}
-                        onChange={this.changeInputPhotosValue}
-                    /> 
-                    <AdicionarMaisFotos onClick={this.adicionaImagem}>+</AdicionarMaisFotos>
-                </ImagemEBotaoMaisFotos>
-                })}
+            <ImagemEBotaoMaisFotos>
+                <TextField
+                    fullWidth
+                    id="Name"
+                    label="Link da imagem"
+                    variant="outlined"
+                    value={this.state.produto.photos}
+                    onChange={this.changeInputPhotosValue}
+                /> 
+                <AdicionarMaisFotos>+</AdicionarMaisFotos>
+            </ImagemEBotaoMaisFotos>
             <Button variant="contained" onClick={this.criarProduto}>
                 Cadastrar
             </Button>

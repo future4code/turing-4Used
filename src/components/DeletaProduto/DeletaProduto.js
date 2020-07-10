@@ -13,6 +13,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { baseUrl } from '../../constants/index.js';
 
 const tema = createMuiTheme({
   palette: {
@@ -95,7 +96,7 @@ class DeletaProduto extends React.Component{
   }
 
   listarProdutos = () => {
-    axios.get("https://us-central1-labenu-apis.cloudfunctions.net/fourUsedOne/products")
+    axios.get(baseUrl)
     .then( response => {
       this.setState({ listaDeProdutos: response.data.products });
     })
@@ -107,7 +108,7 @@ class DeletaProduto extends React.Component{
   deletaProdutos = (produtoId, nome) => {
     let r= window.confirm('Tem certeza de que deseja apagar o produto ' + nome + '?') ;
     if (r===true){
-      axios.delete(`https://us-central1-labenu-apis.cloudfunctions.net/fourUsedOne/products/${produtoId}`)
+      axios.delete(`${baseUrl}/${produtoId}`)
         .then( response => {
           alert("Item apagado com sucesso")
           this.listarProdutos()
