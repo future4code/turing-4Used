@@ -35,7 +35,7 @@ export class ComponentPostarProduto extends Component {
         inputPriceValue: "",
         inputCartaoValue: "",
         inputParcelasValue: "",
-        inputPhotosValue: [],
+        inputPhotosValue: ["", "", "", "", ""],
         inputCategoriaValue: "",
         addImagens: ['ImagemEBotaoMaisFotos']
     };
@@ -55,7 +55,8 @@ export class ComponentPostarProduto extends Component {
         )
         .then(() => {
             alert('Produto cadastrado com sucesso!');
-            this.setState({ inputNameValue: "", inputDescriptionValue: "", inputPriceValue:"", inputCartaoValue:"", inputParcelasValue:"", inputPhotosValue:[], inputCategoriaValue:""})
+            this.setState({ inputNameValue: "", inputDescriptionValue: "", inputPriceValue:"", inputCartaoValue:"", inputParcelasValue:"", inputPhotosValue:["", "", "", "", ""], inputCategoriaValue:""});
+            this.props.atualizaProdutos();
         }).catch(error => {
             console.log(error.message)
         })
@@ -82,7 +83,21 @@ export class ComponentPostarProduto extends Component {
     }
 
     changeInputPhotosValue = (e) => {
-        this.setState({inputPhotosValue: [...this.state.inputPhotosValue, e.target.value]}); 
+        
+        const index = e.target.id;
+        const inputValue = this.state.inputPhotosValue.find( (input, idx) => {
+            return idx == index
+        })
+
+        const novoInputsPhotosValue = this.state.inputPhotosValue.map( (input, idx) => {
+            if( idx == index ) {
+                const novoInput = e.target.value
+                return novoInput
+            } else {
+                return input
+            }
+        })
+        this.setState({inputPhotosValue: novoInputsPhotosValue})
     }
 
     changeInputCategoriaValue = (e) => {
@@ -90,9 +105,11 @@ export class ComponentPostarProduto extends Component {
     }
 
     adicionaImagem = () => {
-        let divAddImagens = this.state.addImagens;
-        divAddImagens.push('novoAddImagens')
-        this.setState({ addImagens: divAddImagens })
+        if(this.state.addImagens.length < 5) {
+            let divAddImagens = this.state.addImagens;
+            divAddImagens.push('novoAddImagens')
+            this.setState({ addImagens: divAddImagens })
+        }
     }
 
 
@@ -130,9 +147,9 @@ export class ComponentPostarProduto extends Component {
                 <MenuItem value="">
                 <em>None</em>
                 </MenuItem>
-                <MenuItem value="debito">Cartão de débito</MenuItem>
-                <MenuItem value="credito">Cartão de crédito</MenuItem>
-                <MenuItem value="boleto">Boleto</MenuItem>
+                <MenuItem value="Cartão de Débito">Cartão de débito</MenuItem>
+                <MenuItem value="Cartão de Crédito">Cartão de crédito</MenuItem>
+                <MenuItem value="Boleto Bancário">Boleto</MenuItem>
             </Select>
 
             <h3>Parcelas</h3>
@@ -162,7 +179,7 @@ export class ComponentPostarProduto extends Component {
                 return <ImagemEBotaoMaisFotos key={divAddImagens} data-block={i}>
                     <TextField
                         fullWidth
-                        id="Name"
+                        id={i}
                         label="Link da imagem"
                         variant="outlined"
                         value={this.state.inputPhotosValue[i]}
