@@ -24,3 +24,9 @@ export const Banner = styled.div`
   }
   cursor: pointer;
 `;
+
+export const styles = {
+  formControl: {
+    width: 150,
+  }
+};
