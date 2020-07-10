@@ -20,9 +20,15 @@ const tema = createMuiTheme({
 	  },
 	  secondary: {
 		main:"#cc1474"
-	  }
+    },
+    textPrimary: {
+      main: "#FF0000"
+    },
+    textSecondary: {
+      main: "#FFFFFF"
+    },
 	}
-  })
+})
 
 const generateClassName = createGenerateClassName()
 const jss = create({

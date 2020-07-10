@@ -36,3 +36,14 @@ export const GridItem = styled.div `
   grid-area: 1 / 5 / 3 / 7;
 }
 `
+export const styles = {
+  titulo: {
+    marginBottom: 8
+  },
+  subtitulo: {
+    marginBottom: 8
+  },
+  fio: {
+    marginLeft: 0
+  }
+};
