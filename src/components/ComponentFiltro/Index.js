@@ -1,33 +1,18 @@
 import React, { Component } from 'react'
-import {ComponentFiltroContainer, ContainerFiltro, Banner} from "./styles";
+import {ComponentFiltroContainer, ContainerFiltro, Banner, styles} from "./styles";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import banner from "./img/banners-inverno.png";
 import { TextField, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
-
-const styles = {
-  formControl: {
-    width: 150,
-  }
-}
-
-
 export class ComponentFiltro extends Component {
-  state = {
-      
-  }
-
   render() {   
-    const { classes } = this.props;
-
-
-    
+    const { classes } = this.props;   
     return (
       <ComponentFiltroContainer>
-            <Banner>
-                <img src={banner} alt="Banner" />
-            </Banner>
+          <Banner>
+            <img src={banner} alt="Banner" />
+          </Banner>
         <ContainerFiltro>
           <TextField
             onChange={this.props.onChangeValorMin}
@@ -51,14 +36,9 @@ export class ComponentFiltro extends Component {
               labelId="ordenacao"
               value={this.props.valorInputOrdenacao}
               onChange={this.props.onChangeOrdenacao}
-              input={
-                <OutlinedInput
-                id="outlined-age-simple"
-                />
-              }
-            >
+              input={<OutlinedInput id="outlined-age-simple"/>}            >
               <MenuItem value="">
-              Ordenar
+                Ordenar
               </MenuItem>
               <MenuItem value={this.props.valorNome}>Nome</MenuItem>
               <MenuItem value={"valor"}>Valor</MenuItem>
@@ -72,5 +52,4 @@ export class ComponentFiltro extends Component {
 ComponentFiltro.propTypes={
   classes: PropTypes.object.isRequired,
 };
-
 export default withStyles(styles)(ComponentFiltro);
