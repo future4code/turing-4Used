@@ -1,32 +1,14 @@
 import React from 'react';
-
-import {Container, CardsHeader, GridProdutos, GridItem} from "./styles";
-
+import {Container, CardsHeader, GridProdutos, GridItem, styles} from "./styles";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-
 import CardProduto from '../CardProduto/CardProduto';
 
-const styles = {
-  titulo: {
-    marginBottom: 8
-  },
-  subtitulo: {
-    marginBottom: 8
-  },
-  fio: {
-    marginLeft: 0
-  }
-};
-
 export class CardCategoria extends React.Component {
-
   render (){
     const { classes } = this.props;
-
     const grupoCategorias = [
       {
         titulo: "Roupas",
@@ -45,14 +27,12 @@ export class CardCategoria extends React.Component {
         texto: "Muitas outras coisas, de todas as cores"
       }
     ]
-
     const categoriasProdutos = grupo => {
       const listaProdutosDaCategoria = this.props.lista.filter( (item, idx) => {
         if ( item.category === grupo) {
           return item.category;
         }
       });
-
       const limiteProdutos = listaProdutosDaCategoria.map( (item, idx) => {
         if ( idx < 6 ) {
           return <GridItem>
@@ -73,42 +53,34 @@ export class CardCategoria extends React.Component {
         </GridItem>
         }
       });
-
       return limiteProdutos;
     }
-
-
     return (
-      <div>
-          {grupoCategorias.map( grupo => {
-            return (
-              <Container>
-
-                <CardsHeader>
-                <Typography variant="h3" className={classes.titulo}>
-                  {grupo.titulo}
-                </Typography>
-                <Typography variant="subheading" className={classes.subtitulo}>
-                  {grupo.nome}
-                </Typography>
-                <Divider variant="inset" className={classes.fio} />
-                </CardsHeader>
-
-                <GridProdutos>
-                  {categoriasProdutos(grupo.titulo)}
-                </GridProdutos>
-
-              </Container>
-            )
+      <>
+        {grupoCategorias.map( grupo => {
+          return (
+            <Container>
+              <CardsHeader>
+              <Typography variant="h3" className={classes.titulo}>
+                {grupo.titulo}
+              </Typography>
+              <Typography variant="subheading" className={classes.subtitulo}>
+                {grupo.nome}
+              </Typography>
+              <Divider variant="inset" className={classes.fio} />
+              </CardsHeader>
+              <GridProdutos>
+                {categoriasProdutos(grupo.titulo)}
+              </GridProdutos>
+            </Container>
+          )
           })
-          }
-      </div>
+        }
+      </>
     );
   }
 }
-
 CardCategoria.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-
 export default withStyles(styles)(CardCategoria);
