@@ -36,8 +36,6 @@ const jss = create({
 	insertionPoint: document.getElementById('jss-insertion-point'),
 })
 
-const theme = createMuiTheme()
-
 function App() {
 	return (
 		<JssProvider jss={jss} generateClassName={generateClassName}>
