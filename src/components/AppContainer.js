@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import axios from 'axios';
 import ComponentPostarProduto from './PostarProduto/ComponentPostarProduto';
 import ComponentFiltro from './ComponentFiltro/Index';
@@ -9,20 +8,9 @@ import CardCategoria from './CardCategoria/CardCategoria';
 import PaginaCategoria from './CardCategoria/PaginaCategoria';
 import Carrinho from './Carrinho/Carrinho'
 import DeletaProduto from './DeletaProduto/DeletaProduto'
-
-const NumeroCarrinho = styled.p `
-  width: 14px;
-  height: 14px;
-  margin-top: -16px;
-  background-color: #cc1474;
-  color: #fff;
-  border-radius: 50%;
-  font-size: 10px;
-  line-height: 16px;
-`
+import {NumeroCarrinho} from './styles'
 
 export class AppContainer extends Component {
-
   state = {
     paginaAtual: "Inicio",
     valorInputMin: "",
@@ -30,16 +18,14 @@ export class AppContainer extends Component {
     valorCategoria: "",
     valorInputOrdenacao: "",
     listaDeProdutos: [],
-    produtosSelecionados: []
+    produtosSelecionados: [],
+    total: 0
   }
-
   componentDidMount = () => {
     this.listarProdutos();
   }
-
   onChangeOrdenacao = (e) => {
     this.setState({valorInputOrdenacao: e.target.value})
-    
     switch (e.target.value) {
       case 'nome':
         return this.setState({listaDeProdutos: this.state.listaDeProdutos.sort((a, b) => {
@@ -55,32 +41,24 @@ export class AppContainer extends Component {
         return this.listarProdutos()
     }
   }
-
   onChangeValorMin = (e) => {
     this.setState({valorInputMin: e.target.value})
-    console.log(this.state.valorInputMin)
   }
-
   onChangeValorMax = (e) => {
     this.setState({valorInputMax: e.target.value})
-    console.log(this.state.valorInputMax)
   }
-
   onChangeValorCategoria = (e) => {
     this.setState({valorCategoria: e.target.value})
-    console.log(this.state.valorCategoria)
   }
-
   listarProdutos = () => {
     axios.get("https://us-central1-labenu-apis.cloudfunctions.net/fourUsedOne/products")
     .then( response => {
       this.setState({ listaDeProdutos: response.data.products });
     })
     .catch( err => {
-      console.log(err.message);
+      alert(err.message);
     })
   }
-
   mudaPagina = (a) => {
     switch(a) {
       case "Vender":
@@ -105,12 +83,10 @@ export class AppContainer extends Component {
         this.setState({ paginaAtual: "Inicio" });
     }
   }
-
   colocaProdutoCarrinho = id => {
     const produtoSelecionado = this.state.listaDeProdutos.find(produto => {
       return produto.id === id
-    })
-    
+    })    
     if( this.state.produtosSelecionados.includes(produtoSelecionado)) {
       alert("Você já adicionou esse produto no carrinho!")
     } else {
@@ -118,30 +94,38 @@ export class AppContainer extends Component {
       this.setState({ produtosSelecionados: [...this.state.produtosSelecionados, produtoSelecionado] });
     } 
   }
-
-  deletaProdutoCarrinho = prodId => {
-    const novoProdutosSelecionados = this.state.produtosSelecionados.filter( produto => {
-      if( produto.id === prodId) {
-        return produto.id !== prodId
-      }
-    })
-
-    this.setState({ produtosSelecionados: novoProdutosSelecionados })
-
+  onClickFinalizarCompra = () => {
+    alert("Obrigado por comprar conosco! Volte sempre.")
+    this.setState({produtosSelecionados: []})
   }
-
+  onClickDeletaProdutoDoCarrinho = (prodId, prodPrice) => {
+    let diminuiPreco = this.state.total
+    const novosprodutos = this.state.produtosSelecionados.filter((produto, indice, array) => {
+      if(produto.id === prodId){
+        diminuiPreco = diminuiPreco - prodPrice
+        this.setState({total: diminuiPreco})
+        return false
+      }
+      return true
+    })
+    this.setState({produtosSelecionados: novosprodutos});
+    this.listarProdutos();
+  }
+  somaTotal = () => {
+    let valorTotal = 0
+    this.state.produtosSelecionados.forEach((produto) => {
+      valorTotal += parseFloat(produto.price)
+      this.setState({total: valorTotal})
+    })
+  }
   onClickAbreCarrinho = () => {
     this.setState({ paginaAtual: "Carrinho" })
   }
-
   abreTelaDeletarProduto = () => {
     this.setState({ paginaAtual: "Deletar" })
   }
-
   render() {
-    console.log(this.state.listaDeProdutos)
     let itensFiltrados = this.state.listaDeProdutos
-
     if(this.state.valorInputMin !== "") {
       itensFiltrados = itensFiltrados.filter((elemento) => {
         return parseFloat(elemento.price) >= this.state.valorInputMin ? true : false
@@ -152,7 +136,6 @@ export class AppContainer extends Component {
         return parseFloat(elemento.price) <= this.state.valorInputMax ? true : false
       })
     }
-
     let renderiza = "";
     switch (this.state.paginaAtual) {
     case 'Vender':
@@ -184,7 +167,7 @@ export class AppContainer extends Component {
       break;
     case 'Carrinho':
       renderiza =
-        <Carrinho mudaPagina={this.mudaPagina} produtosSelecionados={this.state.produtosSelecionados} onClickAbreCarrinho={this.colocaProdutoCarrinho} onClickDeletaProduto={this.deletaProdutoCarrinho} />     
+        <Carrinho mudaPagina={this.mudaPagina} produtosSelecionados={this.state.produtosSelecionados} onClickAbreCarrinho={this.colocaProdutoCarrinho} onClickDeletaProdutoDoCarrinho={this.onClickDeletaProdutoDoCarrinho} total={this.state.total} onClickFinalizarCompra={this.onClickFinalizarCompra} somaTotal={this.somaTotal}/>     
       break;
     case 'Deletar':
       renderiza =
@@ -194,9 +177,7 @@ export class AppContainer extends Component {
     renderiza =
       <ComponentFiltro mudaPagina={this.mudaPagina} />
   }
-
 const numeroProdutosCarrinho = (this.state.produtosSelecionados.length !== 0) ? <NumeroCarrinho>{this.state.produtosSelecionados.length}</NumeroCarrinho> : null;
-
   return (
       <div>
         <Header mudaPagina={this.mudaPagina} produtosCarrinho={numeroProdutosCarrinho}/>
