@@ -32,6 +32,7 @@ export class ComponentFiltro extends Component {
           <TextField
             onChange={this.props.onChangeValorMin}
             value={this.props.valorMin}
+            type="number"
             id="valor-min"
             label="Valor Mínimo"
             variant="outlined"
@@ -40,6 +41,7 @@ export class ComponentFiltro extends Component {
             onChange={this.props.onChangeValorMax}
             value={this.props.valorMax}
             id="valor-max"
+            type="number"
             label="Valor Máximo"
             variant="outlined"
           />
