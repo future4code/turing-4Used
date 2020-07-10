@@ -18,4 +18,5 @@ export const ImagemEBotaoMaisFotos = styled.div `
 export const AdicionarMaisFotos = styled.span `
     font-size: 35px;
     line-height: 45px;
+    cursor: pointer;
 `;

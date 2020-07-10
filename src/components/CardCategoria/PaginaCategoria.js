@@ -46,33 +46,34 @@ export class CardCategoria extends React.Component {
             />
         </GridItem>
         }
+        return false
       });
       return listaProdutosDaCategoria;
     }
     return (
       <>
-        {console.log(this.props.paginaCategoria)}
-          {grupoCategorias.map( grupo => {
-            if ( this.props.paginaCategoria.substring(1, 3) === grupo.titulo.substring(1, 3) ) {
-              return (
-                <Container>
-                  <CardsHeader>
-                  <Typography variant="h3" className={classes.titulo}>
-                    {grupo.titulo}
-                  </Typography>
-                  <Typography variant="subheading" className={classes.subtitulo}>
-                    {grupo.nome}
-                  </Typography>
-                  <Divider variant="inset" className={classes.fio} />
-                  </CardsHeader>
-                  <GridProdutos>
-                    {categoriasProdutos(grupo.titulo)}
-                  </GridProdutos>  
-                </Container>
-              )
-            }
-          })
+        {grupoCategorias.map( grupo => {
+          if ( this.props.paginaCategoria.substring(1, 3) === grupo.titulo.substring(1, 3) ) {
+            return (
+              <Container>
+                <CardsHeader>
+                <Typography variant="h3" className={classes.titulo}>
+                  {grupo.titulo}
+                </Typography>
+                <Typography variant="subheading" className={classes.subtitulo}>
+                  {grupo.nome}
+                </Typography>
+                <Divider variant="inset" className={classes.fio} />
+                </CardsHeader>
+                <GridProdutos>
+                  {categoriasProdutos(grupo.titulo)}
+                </GridProdutos>  
+              </Container>
+            )
           }
+          return false
+        })
+        }
       </>
     );
   }

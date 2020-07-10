@@ -53,12 +53,9 @@ export class ComponentPostarProduto extends Component {
       this.setState({inputParcelasValue: e.target.value})      
     }
     changeInputPhotosValue = (e) => {       
-      const index = e.target.id;
-      const inputValue = this.state.inputPhotosValue.find( (input, idx) => {
-        return idx == index
-      })
+      const index = Number(e.target.id)
       const novoInputsPhotosValue = this.state.inputPhotosValue.map( (input, idx) => {
-        if( idx == index ) {
+        if( idx === index ) {
           const novoInput = e.target.value
           return novoInput
         } else {
@@ -146,10 +143,10 @@ export class ComponentPostarProduto extends Component {
             <AdicionarMaisFotos onClick={this.adicionaImagem}>+</AdicionarMaisFotos>
           </ImagemEBotaoMaisFotos>
           })}
-        <Button variant="contained" onClick={this.criarProduto}>
+        <Button variant="contained" color="primary" onClick={this.criarProduto}>
           Cadastrar
         </Button>            
-        <Button variant="contained" onClick={this.props.abreTelaDeletarProduto}>
+        <Button variant="contained" color="secondary" onClick={this.props.abreTelaDeletarProduto}>
           Apagar produto
         </Button>         
       </ContainerCadastrarProdutos>

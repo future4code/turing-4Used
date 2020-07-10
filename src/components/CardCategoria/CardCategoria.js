@@ -32,10 +32,11 @@ export class CardCategoria extends React.Component {
         if ( item.category === grupo) {
           return item.category;
         }
+        return false
       });
       const limiteProdutos = listaProdutosDaCategoria.map( (item, idx) => {
         if ( idx < 6 ) {
-          return <GridItem>
+          return <GridItem key={idx}>
             <CardProduto 
               imagem={item.photos} 
               imagemPrincipal={item.photos[0]} 
@@ -52,14 +53,15 @@ export class CardCategoria extends React.Component {
             />
         </GridItem>
         }
+        return false
       });
       return limiteProdutos;
     }
     return (
       <>
-        {grupoCategorias.map( grupo => {
+        {grupoCategorias.map((grupo, index) => {
           return (
-            <Container>
+            <Container key={index}>
               <CardsHeader>
               <Typography variant="h3" className={classes.titulo}>
                 {grupo.titulo}

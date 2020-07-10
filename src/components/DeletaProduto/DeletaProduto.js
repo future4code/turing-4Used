@@ -47,7 +47,7 @@ class DeletaProduto extends React.Component{
         <Titulo>Escolha um produto para deletar</Titulo>
         {this.state.listaDeProdutos.map(produto =>{
           return(
-            <Card className={classes.card}>
+            <Card className={classes.card} key={produto.id}>
               <CardContent>
                 <CardMedia
                   className={classes.media}

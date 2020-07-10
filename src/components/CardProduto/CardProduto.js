@@ -6,7 +6,7 @@ import Chip from '@material-ui/core/Chip';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
-import detalheProduto, { DetalheProduto } from '../DetalheProduto/DetalheProduto';
+import { DetalheProduto } from '../DetalheProduto/DetalheProduto';
 import {styles, PriceContainer} from "./styles";
 import IconButton from '@material-ui/core/IconButton';
 

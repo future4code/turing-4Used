@@ -29,15 +29,18 @@ export class AppContainer extends Component {
     this.setState({valorInputOrdenacao: e.target.value})
     switch (e.target.value) {
       case 'nome':
-        return this.setState({listaDeProdutos: this.state.listaDeProdutos.sort((a, b) => {
-           if(b.name > a.name) {
+        this.setState({listaDeProdutos: this.state.listaDeProdutos.sort((a, b) => {
+          if(b.name > a.name) {
             return -1;
           }
+          return true
         })})
+        break;
       case 'valor':
-        return this.setState({listaDeProdutos: this.state.listaDeProdutos.sort((a, b) => {
+        this.setState({listaDeProdutos: this.state.listaDeProdutos.sort((a, b) => {
           return a.price - b.price
           })})
+        break;  
       default:
         return this.listarProdutos()
     }

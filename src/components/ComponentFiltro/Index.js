@@ -33,7 +33,7 @@ export class ComponentFiltro extends Component {
           <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel htmlFor="outlined-age-simple">Ordenar</InputLabel>
             <Select
-              labelId="ordenacao"
+              labelid="ordenacao"
               value={this.props.valorInputOrdenacao}
               onChange={this.props.onChangeOrdenacao}
               input={<OutlinedInput id="outlined-age-simple"/>}            >
