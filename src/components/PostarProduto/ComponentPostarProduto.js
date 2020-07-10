@@ -82,7 +82,7 @@ export class ComponentPostarProduto extends Component {
     }
 
     changeInputPhotosValue = (e) => {
-        this.setState({inputPhotosValue: [...this.state.inputPhotosValue, e.target.value]})      
+        this.setState({inputPhotosValue: [...this.state.inputPhotosValue, e.target.value]}); 
     }
 
     changeInputCategoriaValue = (e) => {

@@ -79,6 +79,7 @@ export class CardCategoria extends React.Component {
           return <GridItem>
             <CardProduto 
               imagem={item.photos} 
+              imagemPrincipal={item.photos[0]} 
               preco={"R$ " + item.price} 
               id={item.id}
               lista={this.listarProdutos}
