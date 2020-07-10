@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import axios from 'axios';
 import { ContainerCadastrarProdutos, ImagemEBotaoMaisFotos, AdicionarMaisFotos} from './styles';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
+import { baseUrl } from '../../constants/index.js';
+
 export class ComponentPostarProduto extends Component {
   state = {
     inputNameValue: "",
@@ -26,16 +28,15 @@ export class ComponentPostarProduto extends Component {
       photos: this.state.inputPhotosValue,
       installments: this.state.inputParcelasValue
     }
-    axios.post ("https://us-central1-labenu-apis.cloudfunctions.net/fourUsedOne/products", body
-    )
+    axios.post (baseUrl, body)
     .then(() => {
       alert('Produto cadastrado com sucesso!');
       this.setState({ inputNameValue: "", inputDescriptionValue: "", inputPriceValue:"", inputCartaoValue:"", inputParcelasValue:"", inputPhotosValue:["", "", "", "", ""], inputCategoriaValue:""});
       this.props.atualizaProdutos();
     }).catch(error => {
-      alert(error.message)
-    })
-  }
+        console.log(error.message)
+      })
+    }
     changeInputNameValue = (e) => {
       this.setState({inputNameValue: e.target.value})
     }

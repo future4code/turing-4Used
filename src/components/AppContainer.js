@@ -8,6 +8,7 @@ import CardCategoria from './CardCategoria/CardCategoria';
 import PaginaCategoria from './CardCategoria/PaginaCategoria';
 import Carrinho from './Carrinho/Carrinho'
 import DeletaProduto from './DeletaProduto/DeletaProduto'
+import { baseUrl } from '../constants/index.js';
 import {NumeroCarrinho} from './styles'
 
 export class AppContainer extends Component {
@@ -51,7 +52,7 @@ export class AppContainer extends Component {
     this.setState({valorCategoria: e.target.value})
   }
   listarProdutos = () => {
-    axios.get("https://us-central1-labenu-apis.cloudfunctions.net/fourUsedOne/products")
+    axios.get(baseUrl)
     .then( response => {
       this.setState({ listaDeProdutos: response.data.products });
     })
