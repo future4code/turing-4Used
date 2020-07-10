@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 import {Container, CardsHeader, GridProdutos, GridItem} from "./styles";
 
@@ -10,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
 import CardProduto from '../CardProduto/CardProduto';
-import Axios from 'axios';
 
 const styles = {
   titulo: {
