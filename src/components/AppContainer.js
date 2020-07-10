@@ -157,7 +157,7 @@ export class AppContainer extends Component {
     switch (this.state.paginaAtual) {
     case 'Vender':
       renderiza =
-        <ComponentPostarProduto mudaPagina={this.mudaPagina} abreTelaDeletarProduto={this.abreTelaDeletarProduto} />
+        <ComponentPostarProduto mudaPagina={this.mudaPagina} abreTelaDeletarProduto={this.abreTelaDeletarProduto} atualizaProdutos={this.listarProdutos} />
       break;
     case 'Inicio':
       renderiza =
