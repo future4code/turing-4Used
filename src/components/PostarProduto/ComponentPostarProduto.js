@@ -34,7 +34,7 @@ export class ComponentPostarProduto extends Component {
       this.setState({ inputNameValue: "", inputDescriptionValue: "", inputPriceValue:"", inputCartaoValue:"", inputParcelasValue:"", inputPhotosValue:["", "", "", "", ""], inputCategoriaValue:""});
       this.props.atualizaProdutos();
     }).catch(error => {
-        console.log(error.message)
+        alert(error.message)
       })
     }
     changeInputNameValue = (e) => {
