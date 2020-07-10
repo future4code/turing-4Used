@@ -15,7 +15,6 @@ import GridListTile from '@material-ui/core/GridListTile';
 import Close from '@material-ui/icons/Close';
 
 import { withStyles } from '@material-ui/core/styles';
-import { array } from 'prop-types';
 
   const Botaozao = withStyles({ //estilo do botão para texto branco
     root: {
@@ -120,28 +119,13 @@ export class DetalheProduto extends Component {
                     <Botaozao variant="contained" color="primary" onClick={this.props.onClickIrParaCarrinho}>Ir para o Carrinho</Botaozao>
                 </Dados>
                 <Imagens>
+                    <GridList cellHeight={240} cols={3}>
                     {this.props.imagens.map( (imagem, idx, arr) => {
-                        return <GridList cellHeight={100} cols={3}>
-                            <GridListTile cols={3} rows={2}>
-                                <img src={arr[0]}/>
+                        return <GridListTile >
+                                <img  src={imagem}/>
                             </GridListTile>
-                            <GridListTile cols={1} rows={1}>
-                                <img src={arr[1]}/>
-                            </GridListTile>
-                            <GridListTile cols={1} rows={1}>
-                                <img src={arr[2]}/>
-                            </GridListTile>
-                            <GridListTile cols={1} rows={1}>
-                                <img src={arr[3]}/>
-                            </GridListTile>
-                            <GridListTile cols={1.5} rows={2}>
-                                <img src={arr[4]}/>
-                            </GridListTile>
-                            <GridListTile cols={1.5} rows={2}>
-                                <img  src={arr[5]}/>
-                            </GridListTile>
-                        </GridList>
                     })}
+                    </GridList>
                 </Imagens>
             </Detalhe>
         </Total>

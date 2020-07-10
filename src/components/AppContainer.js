@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import ComponentPostarProduto from './ComponentPostarProduto';
+import ComponentPostarProduto from './PostarProduto/ComponentPostarProduto';
 import ComponentFiltro from './ComponentFiltro/Index';
 import Footer from "./Footer/Index";
 import Header from "./CardHeader/Index";
 import CardCategoria from './CardCategoria/CardCategoria';
 import PaginaCategoria from './CardCategoria/PaginaCategoria';
-import Carrinho from './Carrinho'
-import DeletaProduto from './DeletaProduto'
+import Carrinho from './Carrinho/Carrinho'
+import DeletaProduto from './DeletaProduto/DeletaProduto'
 
 const NumeroCarrinho = styled.p `
   width: 14px;

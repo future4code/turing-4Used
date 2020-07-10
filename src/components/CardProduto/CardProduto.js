@@ -12,7 +12,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
 
-import detalheProduto, { DetalheProduto } from '../DetalheProduto';
+import detalheProduto, { DetalheProduto } from '../DetalheProduto/DetalheProduto';
 
 const tema = createMuiTheme({
     palette: {
