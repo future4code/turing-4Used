@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import {NumeroCarrinho} from './styles';
 import axios from 'axios';
 import ComponentPostarProduto from './PostarProduto/ComponentPostarProduto';
 import ComponentFiltro from './ComponentFiltro/Index';
@@ -10,19 +10,7 @@ import PaginaCategoria from './CardCategoria/PaginaCategoria';
 import Carrinho from './Carrinho/Carrinho'
 import DeletaProduto from './DeletaProduto/DeletaProduto'
 
-const NumeroCarrinho = styled.p `
-  width: 14px;
-  height: 14px;
-  margin-top: -16px;
-  background-color: #cc1474;
-  color: #fff;
-  border-radius: 50%;
-  font-size: 10px;
-  line-height: 16px;
-`
-
 export class AppContainer extends Component {
-
   state = {
     paginaAtual: "Inicio",
     valorInputMin: "",
@@ -32,55 +20,44 @@ export class AppContainer extends Component {
     listaDeProdutos: [],
     produtosSelecionados: []
   }
-
   componentDidMount = () => {
     this.listarProdutos();
   }
-
   onChangeOrdenacao = (e) => {
-    this.setState({valorInputOrdenacao: e.target.value})
-    
+    this.setState({valorInputOrdenacao: e.target.value}) 
     switch (e.target.value) {
       case 'nome':
         return this.setState({listaDeProdutos: this.state.listaDeProdutos.sort((a, b) => {
-           if(b.name > a.name) {
+          if(b.name > a.name) {
             return -1;
           }
         })})
       case 'valor':
         return this.setState({listaDeProdutos: this.state.listaDeProdutos.sort((a, b) => {
           return a.price - b.price
-          })})
+        })})
       default:
         return this.listarProdutos()
     }
   }
-
   onChangeValorMin = (e) => {
     this.setState({valorInputMin: e.target.value})
-    console.log(this.state.valorInputMin)
   }
-
   onChangeValorMax = (e) => {
     this.setState({valorInputMax: e.target.value})
-    console.log(this.state.valorInputMax)
   }
-
   onChangeValorCategoria = (e) => {
     this.setState({valorCategoria: e.target.value})
-    console.log(this.state.valorCategoria)
   }
-
   listarProdutos = () => {
     axios.get("https://us-central1-labenu-apis.cloudfunctions.net/fourUsedOne/products")
     .then( response => {
       this.setState({ listaDeProdutos: response.data.products });
     })
     .catch( err => {
-      console.log(err.message);
+      alert(err.message);
     })
   }
-
   mudaPagina = (a) => {
     switch(a) {
       case "Vender":
@@ -105,7 +82,6 @@ export class AppContainer extends Component {
         this.setState({ paginaAtual: "Inicio" });
     }
   }
-
   colocaProdutoCarrinho = id => {
     const produtoSelecionado = this.state.listaDeProdutos.find(produto => {
       return produto.id === id
@@ -118,30 +94,22 @@ export class AppContainer extends Component {
       this.setState({ produtosSelecionados: [...this.state.produtosSelecionados, produtoSelecionado] });
     } 
   }
-
   deletaProdutoCarrinho = prodId => {
     const novoProdutosSelecionados = this.state.produtosSelecionados.filter( produto => {
       if( produto.id === prodId) {
         return produto.id !== prodId
       }
     })
-
     this.setState({ produtosSelecionados: novoProdutosSelecionados })
-
   }
-
   onClickAbreCarrinho = () => {
     this.setState({ paginaAtual: "Carrinho" })
   }
-
   abreTelaDeletarProduto = () => {
     this.setState({ paginaAtual: "Deletar" })
   }
-
   render() {
-    console.log(this.state.listaDeProdutos)
     let itensFiltrados = this.state.listaDeProdutos
-
     if(this.state.valorInputMin !== "") {
       itensFiltrados = itensFiltrados.filter((elemento) => {
         return elemento.price >= this.state.valorInputMin ? true : false
@@ -152,7 +120,6 @@ export class AppContainer extends Component {
         return elemento.price <= this.state.valorInputMax ? true : false
       })
     }
-
     let renderiza = "";
     switch (this.state.paginaAtual) {
     case 'Vender':
@@ -194,15 +161,17 @@ export class AppContainer extends Component {
     renderiza =
       <ComponentFiltro mudaPagina={this.mudaPagina} />
   }
+    const numeroProdutosCarrinho = 
+      (this.state.produtosSelecionados.length !== 0) ? 
+      <NumeroCarrinho>{this.state.produtosSelecionados.length}</NumeroCarrinho> : 
+      null;
 
-const numeroProdutosCarrinho = (this.state.produtosSelecionados.length !== 0) ? <NumeroCarrinho>{this.state.produtosSelecionados.length}</NumeroCarrinho> : null;
-
-  return (
-      <div>
+    return (
+      <>
         <Header mudaPagina={this.mudaPagina} produtosCarrinho={numeroProdutosCarrinho}/>
         {renderiza}
         <Footer />
-      </div>
+      </>
     )
   }
 }
