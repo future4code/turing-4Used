@@ -30,17 +30,14 @@ const AdicionarMaisFotos = styled.span `
 
 export class ComponentPostarProduto extends Component {
     state = {
-        produto: [
-    ],
-
-    inputNameValue: "",
-    inputDescriptionValue: "",
-    inputPriceValue: "",
-    inputCartaoValue: "",
-    inputParcelasValue: "",
-    inputPhotosValue: [],
-    inputCategoriaValue: "",
-
+        inputNameValue: "",
+        inputDescriptionValue: "",
+        inputPriceValue: "",
+        inputCartaoValue: "",
+        inputParcelasValue: "",
+        inputPhotosValue: [],
+        inputCategoriaValue: "",
+        addImagens: ['ImagemEBotaoMaisFotos']
     };
 
     criarProduto = () => {
@@ -57,12 +54,12 @@ export class ComponentPostarProduto extends Component {
         axios.post ("https://us-central1-labenu-apis.cloudfunctions.net/fourUsedOne/products", body
         )
         .then(() => {
-            alert('Produto cadastrado com sucesso!')
+            alert('Produto cadastrado com sucesso!');
+            this.setState({ inputNameValue: "", inputDescriptionValue: "", inputPriceValue:"", inputCartaoValue:"", inputParcelasValue:"", inputPhotosValue:[], inputCategoriaValue:""})
         }).catch(error => {
             console.log(error.message)
         })
     }
-
 
     changeInputNameValue = (e) => {
         this.setState({inputNameValue: e.target.value})
@@ -92,8 +89,15 @@ export class ComponentPostarProduto extends Component {
         this.setState({inputCategoriaValue: e.target.value})      
     }
 
+    adicionaImagem = () => {
+        let divAddImagens = this.state.addImagens;
+        divAddImagens.push('novoAddImagens')
+        this.setState({ addImagens: divAddImagens })
+    }
+
 
   render() {
+
     return (
         <ContainerCadastrarProdutos>
             <h1>Incluir Produto</h1>
@@ -102,14 +106,14 @@ export class ComponentPostarProduto extends Component {
                 id="Name"
                 label="Nome do produto"
                 variant="outlined"
-                value={this.state.produto.name}
+                value={this.state.inputNameValue}
                 onChange={this.changeInputNameValue}
             />
             <TextField
                 id="Name"
                 label="Descrição"
                 variant="outlined"
-                value={this.state.produto.description}
+                value={this.state.inputDescriptionValue}
                 onChange={this.changeInputDescriptionValue}
             />
             <TextField
@@ -117,10 +121,9 @@ export class ComponentPostarProduto extends Component {
                 label="Preço"
                 variant="outlined"
                 type="number"
-                value={this.state.produto.price}
+                value={this.state.inputPriceValue}
                 onChange={this.changeInputPriceValue}
             />
-
 
             <h3>Método de pagamento</h3>
             <Select value={this.state.inputCartaoValue} onChange={this.changeInputCartaoValue}>
@@ -149,23 +152,25 @@ export class ComponentPostarProduto extends Component {
                 </MenuItem>
                 <MenuItem value={"Roupas"}>Roupas</MenuItem>
                 <MenuItem value={"Calcados"}>Calçados</MenuItem>
-                <MenuItem value={"Acessorios"}>Acessórios</MenuItem>
+                <MenuItem value={"Acessórios"}>Acessórios</MenuItem>
                 <MenuItem value={"Outros"}>Outros</MenuItem>
             </Select>
 
             <h3>Imagens do produto</h3>
             <p>Clique ao lado para adicionar mais imagens</p>
-            <ImagemEBotaoMaisFotos>
-                <TextField
-                    fullWidth
-                    id="Name"
-                    label="Link da imagem"
-                    variant="outlined"
-                    value={this.state.produto.photos}
-                    onChange={this.changeInputPhotosValue}
-                /> 
-                <AdicionarMaisFotos>+</AdicionarMaisFotos>
-            </ImagemEBotaoMaisFotos>
+            {this.state.addImagens.map((divAddImagens, i) => {
+                return <ImagemEBotaoMaisFotos key={divAddImagens} data-block={i}>
+                    <TextField
+                        fullWidth
+                        id="Name"
+                        label="Link da imagem"
+                        variant="outlined"
+                        value={this.state.inputPhotosValue[i]}
+                        onChange={this.changeInputPhotosValue}
+                    /> 
+                    <AdicionarMaisFotos onClick={this.adicionaImagem}>+</AdicionarMaisFotos>
+                </ImagemEBotaoMaisFotos>
+                })}
             <Button variant="contained" onClick={this.criarProduto}>
                 Cadastrar
             </Button>
