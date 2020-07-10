@@ -25,6 +25,9 @@ export class ComponentFiltro extends Component {
     
     return (
       <ComponentFiltroContainer>
+            <Banner>
+                <img src={banner} alt="Banner" />
+            </Banner>
         <ContainerFiltro>
           <TextField
             onChange={this.props.onChangeValorMin}
@@ -60,9 +63,6 @@ export class ComponentFiltro extends Component {
             </Select>
           </FormControl>
         </ContainerFiltro>
-        <Banner>
-            <img src={banner} alt="Banner" />
-        </Banner>
       </ComponentFiltroContainer>
     )
   }

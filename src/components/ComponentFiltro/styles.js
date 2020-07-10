@@ -12,6 +12,8 @@ export const ContainerFiltro = styled.div `
   align-items: center;
   width: 58vw;
   padding: 8px;
+  margin-top: 30px;
+  
 `;
 
 export const Banner = styled.div`
